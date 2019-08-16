@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://autodesk.com/scope-version-objects.2.0.0.json",
+    "title": "Scope Version Objects",
+    "description": "The tracked objects for a scope version. Indexing into these data are used in other scope version data sets.",
+    "type": "object",
+    "properties": {
+        "scope": {
+            "description": "The Scope GUID",
+            "type": "string"
+        },
+        "version": {
+            "description": "The Scope version",
+            "type": "integer"
+        },
+        "objects": {
+            "description": "The set of tracked objects in this breakdown",
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "scope",
+        "version",
+        "objects"
+    ]
+}

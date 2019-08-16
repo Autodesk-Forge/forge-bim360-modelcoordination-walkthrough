@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>QueryModelSetVersionIndex</AssemblyName>
+    <RootNamespace>QueryModelSetVersionIndex</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.assert" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\tools\dotnet\src\MCCommon\MCCommon.csproj" />
+    <ProjectReference Include="..\MCSample\MCSample.csproj" />
+  </ItemGroup>
+
+</Project>

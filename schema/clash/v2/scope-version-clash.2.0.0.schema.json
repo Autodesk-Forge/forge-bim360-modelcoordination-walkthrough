@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://autodesk.com/scope-version-clash.2.0.0.json",
+    "title": "Scope Version Clash",
+    "description": "The clash results for a scope version. This document only includes clash that are new or existing. Resolved clashes are not included.",
+    "type": "object",
+    "properties": {
+        "scope": {
+            "description": "The scope GUID",
+            "type": "string"
+        },
+        "version": {
+            "description": "The scope version",
+            "type": "integer"
+        },
+        "clashes": {
+            "description": "The individual clash results in the scope version.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "The unique ID for the clash in the scope. These ID values are stable within a given scope.",
+                        "type": "integer"
+                    },                        
+                    "clash": {
+                        "description": "The IDs of tracked objects which are clashing. This is the [objects].[id] in the scope-version-objects...json",
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "maxItems": 2,
+                            "minItems": 2       
+                        }
+                    },
+                    "dist": {
+                        "description": "The penetration depth of the clash",
+                        "type": "number"
+                    },
+                    "status": {
+                        "description": "The status of the clash result relative to the previous execution of the clash engine",
+                        "type": "string",
+                        "enum": [
+                            "new",
+                            "existing",
+                            "resolved"
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "clash",
+                    "dist",
+                    "status"
+                ]
+            }
+        }
+    }
+}
