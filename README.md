@@ -40,9 +40,3 @@ The samples are designed to build on one another's output and therefore should b
 |[Putting it all together: Azure Cosmos DB & Power BI](sample/dotnet/src/CosmoDbUploader/README.md)|How to use the APIs to classify clash results, upload these data to Azure Cosmos and visualize clash in Microsoft Power BI|
 |[Putting it all together: Assigned & Closed Clash Groups](sample/dotnet/src/QueryAssignedClosedClash/README.md)|How to use the APIs to query clashs which have been assigned to BIM 360 issues or marked as closed|
 
-### Postman
-
-The [Postman](https://www.getpostman.com/) sample collection [included in this repository](sample/postman/mcsample.postman_collection.json) in limited to `HTTP GET` operations and therefore only partially demonstrates the capabilities of the BIM 360 Model Coordination APIs.
-
-### NodeJS
-
