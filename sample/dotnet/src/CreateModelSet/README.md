@@ -35,7 +35,7 @@ var state = new CreateModelSetState();
 This is saved to disk in a `state` folder under `.nucleus`
 
 ```powershell
-PS > [System.IO.Path]::Combine([System.Environment]::GetFolderPath('UserProfile'), '.nucleus\state\CreateModelSetState')
+PS > [System.IO.Path]::Combine([System.Environment]::GetFolderPath('UserProfile'), '.nucleus', 'state', 'CreateModelSetState')
 ```
 
 Before files can be uploaded the app creates a `/Plans/MC_SAMPLE/{MC_{Year}{Month}{Day}{Hour}{Minute}{Second}}` folder, e.g. `Plans/MC_SAMPLE/MC_20190724101057`. This folder is used as the target for the model set.
