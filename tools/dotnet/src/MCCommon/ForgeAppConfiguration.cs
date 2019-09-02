@@ -41,13 +41,13 @@ namespace MCCommon
         }
 
         [JsonIgnore]
-        public Uri NucleusLegacyBasePath => new Uri($"https://{Host}/bim360/aggregate/");
+        public Uri ModelSetApiBasePath => new Uri($"https://{Host}/bim360/modelset/");
 
         [JsonIgnore]
-        public Uri NucleusModelSetBasePath => new Uri($"https://{Host}/bim360/modelset/");
+        public Uri ModelSetIndexApiBasePath => new Uri($"https://{Host}/bim360/modelset-index/");
 
         [JsonIgnore]
-        public Uri NucleusClashBasePath => new Uri($"https://{Host}/bim360/clash/");
+        public Uri ClashApiBasePath => new Uri($"https://{Host}/bim360/clash/");
 
         [JsonIgnore]
         public Uri AuthorizeUrl => new Uri($"https://{Host}/authentication/v1/authorize?response_type=code&client_id={ClientId}&redirect_uri={UrlSafeCallbackUrl}&scope=data:read%20data:write");
