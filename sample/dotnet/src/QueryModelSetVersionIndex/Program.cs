@@ -1,5 +1,5 @@
-﻿using Autodesk.Nucleus.Index.Entities.V1;
-using Autodesk.Nucleus.Scopes.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.Index;
+using Autodesk.Forge.Bim360.ModelCoordination.ModelSet;
 using MCCommon;
 using MCSample;
 using MCSample.Forge;
@@ -36,9 +36,9 @@ namespace QueryModelSetVersionIndex
 
             using (var ctx = ForgeAppContext.Create())
             {
-                var msClient = ctx.ExportService<IModelSetClient>();
+                var msClient = ctx.ExportService<IForgeModelSetClient>();
 
-                var msIndex = ctx.ExportService<IIndexClient>();
+                var msIndex = ctx.ExportService<IForgeIndexClient>();
 
                 await ConsoleExt.DoConsoleAction(async () =>
                 {

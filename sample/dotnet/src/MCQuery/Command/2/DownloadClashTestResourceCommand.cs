@@ -1,4 +1,4 @@
-﻿using Autodesk.Nucleus.Clash.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.Clash;
 using MCCommon;
 using MCSample;
 using MCSample.Model;
@@ -13,10 +13,10 @@ namespace MCQuery.Command
     [Export(typeof(IConsoleCommand))]
     internal sealed class DownloadClashTestResourceCommand : CurrentStateCommand
     {
-        private readonly IClashClient _clashClient;
+        private readonly IForgeClashClient _clashClient;
 
         [ImportingConstructor]
-        public DownloadClashTestResourceCommand(IClashClient clashClient) => _clashClient = clashClient ?? throw new ArgumentNullException(nameof(clashClient));
+        public DownloadClashTestResourceCommand(IForgeClashClient clashClient) => _clashClient = clashClient ?? throw new ArgumentNullException(nameof(clashClient));
 
         public override string Display => "Download clash test resources";
 
@@ -28,7 +28,7 @@ namespace MCQuery.Command
         {
             await DoCurrentContainerClashTestInput();
 
-            ClashTestResourceCollection resources = await _clashClient.GetModelSetClashTestResources(Me.Container, Me.ClashTestId);
+            var resources = await _clashClient.GetModelSetClashTestResources(Me.Container, Me.ClashTestId);
 
             Console.WriteLine();
 

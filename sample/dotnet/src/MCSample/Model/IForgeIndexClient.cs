@@ -1,4 +1,4 @@
-﻿using Autodesk.Nucleus.Index.Entities.V1;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.Index;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MCSample.Model
 {
-    public interface IIndexClient
+    public interface IForgeIndexClient
     {
         Task<IReadOnlyDictionary<string, IndexField>> GetFields(Guid containerId, Guid modelSetId, uint version);
 

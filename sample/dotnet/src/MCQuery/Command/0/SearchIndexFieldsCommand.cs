@@ -10,14 +10,14 @@ namespace MCQuery.Command
     [Export(typeof(IConsoleCommand))]
     internal sealed class GetIndexFieldsCommand : CurrentStateCommand
     {
-        private readonly IIndexClient _indexClient;
+        private readonly IForgeIndexClient _indexClient;
 
         public override string Display => "Search index fields";
 
         public override uint Order => 1;
 
         [ImportingConstructor]
-        public GetIndexFieldsCommand(IIndexClient indexClient) => _indexClient = indexClient ?? throw new ArgumentNullException(nameof(indexClient));
+        public GetIndexFieldsCommand(IForgeIndexClient indexClient) => _indexClient = indexClient ?? throw new ArgumentNullException(nameof(indexClient));
 
         public override async Task DoInput()
         {

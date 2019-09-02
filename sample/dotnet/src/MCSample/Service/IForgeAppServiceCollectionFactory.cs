@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace MCSample.Service
 {
-    public interface IModelCoordinationServiceCollectionFactory
+    public interface IForgeAppServiceCollectionFactory
     {
         Task<ServiceProvider> CreateServiceProvider();
     }

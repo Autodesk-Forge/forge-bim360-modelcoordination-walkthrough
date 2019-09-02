@@ -1,5 +1,5 @@
-﻿using Autodesk.Nucleus.Index.Entities.V1;
-using Autodesk.Nucleus.Scopes.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.Index;
+using Autodesk.Forge.Bim360.ModelCoordination.ModelSet;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,10 +13,10 @@ namespace MCSample.Model.Cosmo
     [Export(typeof(IRevitObjectQuery))]
     internal class RevitObjectQuery : IRevitObjectQuery
     {
-        private readonly IIndexClient _indexClient;
+        private readonly IForgeIndexClient _indexClient;
 
         [ImportingConstructor]
-        public RevitObjectQuery(IIndexClient indexClient) => _indexClient = indexClient;
+        public RevitObjectQuery(IForgeIndexClient indexClient) => _indexClient = indexClient;
 
         public IndexManifest Manifest { get; private set; }
 

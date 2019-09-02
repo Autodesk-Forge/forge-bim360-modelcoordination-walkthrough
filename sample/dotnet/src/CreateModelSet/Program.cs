@@ -1,4 +1,4 @@
-﻿using Autodesk.Nucleus.Scopes.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.ModelSet;
 using MCCommon;
 using MCSample;
 using MCSample.Forge;
@@ -132,7 +132,7 @@ namespace CreateModelSet
                  */
                 await ConsoleExt.DoConsoleAction(async () =>
                 {
-                    var modelSetClient = ctx.ExportService<IModelSetClient>();
+                    var modelSetClient = ctx.ExportService<IForgeModelSetClient>();
 
                     state.ModelSet = await modelSetClient.CreateModelSet(
                         forge.Configuration.Project,

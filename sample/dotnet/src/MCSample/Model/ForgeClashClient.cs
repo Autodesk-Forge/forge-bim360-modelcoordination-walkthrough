@@ -1,5 +1,4 @@
-﻿using Autodesk.Nucleus.Clash.Client.V3;
-using Autodesk.Nucleus.Clash.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.Clash;
 using MCSample.Service;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace MCSample.Model
 {
-    [Export(typeof(IClashClient))]
-    internal sealed class ClashClient : ClientBase, IClashClient
+    [Export(typeof(IForgeClashClient))]
+    internal sealed class ForgeClashClient : ClientBase, IForgeClashClient
     {
         [ImportingConstructor]
-        public ClashClient(IModelCoordinationServiceCollectionFactory serviceCollecitonFactory)
+        public ForgeClashClient(IForgeAppServiceCollectionFactory serviceCollecitonFactory)
             : base(serviceCollecitonFactory)
         {
         }
@@ -26,7 +25,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IClashClientV3>();
+                var client = sc.GetRequiredService<IClashClient>();
 
                 return await client.GetModelSetClashTestsAsync(containerId, modelSetId, pageLimit, continuationToken);
             }
@@ -36,7 +35,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IClashClientV3>();
+                var client = sc.GetRequiredService<IClashClient>();
 
                 return await client.GetModelSetVersionClashTestsAsync(containerId, modelSetId, (int)version, pageLimit, continuationToken);
             }
@@ -46,7 +45,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IClashClientV3>();
+                var client = sc.GetRequiredService<IClashClient>();
 
                 return await client.GetClashTestAsync(containerId, clashTestId);
             }
@@ -56,7 +55,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IClashClientV3>();
+                var client = sc.GetRequiredService<IClashClient>();
 
                 return await client.GetClashTestResourcesAsync(containerId, clashTestId);
             }
@@ -113,7 +112,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IClashClientV3>();
+                var client = sc.GetRequiredService<IClashClient>();
 
                 return await client.GetClashTestAssignedClashGroupIntersectionAsync(containerId, testId, pageLimit, continuationToken);
             }
@@ -123,7 +122,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IClashClientV3>();
+                var client = sc.GetRequiredService<IClashClient>();
 
                 return await client.GetAssignedClashGroupBatchAsync(containerId, testId, useIssueId, identities);
             }
@@ -133,7 +132,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IClashClientV3>();
+                var client = sc.GetRequiredService<IClashClient>();
 
                 return await client.GetClashTestClosedClashGroupIntersectionAsync(containerId, testId, pageLimit, continuationToken);
             }
@@ -143,17 +142,17 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IClashClientV3>();
+                var client = sc.GetRequiredService<IClashClient>();
 
                 return await client.GetClosedClashGroupDataBatchAsync(containerId, testId, identities);
             }
         }
 
-        public async Task<Autodesk.Nucleus.Clash.Client.V3.FileResponse> GetScreenShotAsync(Guid containerId, Guid modelSetId, Guid screenShotId)
+        public async Task<FileResponse> GetScreenShotAsync(Guid containerId, Guid modelSetId, Guid screenShotId)
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IClashClientV3>();
+                var client = sc.GetRequiredService<IClashClient>();
 
                 return await client.GetScreenShotAsync(containerId, modelSetId, screenShotId);
             }

@@ -1,5 +1,4 @@
-﻿using Autodesk.Nucleus.Index.Client.V1;
-using Autodesk.Nucleus.Index.Entities.V1;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.Index;
 using MCSample.Service;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -14,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace MCSample.Model
 {
-    [Export(typeof(IIndexClient))]
-    internal sealed class IndexClient : ClientBase, IIndexClient
+    [Export(typeof(IForgeIndexClient))]
+    internal sealed class ForgeIndexClient : ClientBase, IForgeIndexClient
     {
         private readonly IIndexFieldCache _fieldCache;
 
         [ImportingConstructor]
-        public IndexClient(IModelCoordinationServiceCollectionFactory serviceCollecitonFactory, IIndexFieldCache fieldCache)
+        public ForgeIndexClient(IForgeAppServiceCollectionFactory serviceCollecitonFactory, IIndexFieldCache fieldCache)
             : base(serviceCollecitonFactory) => _fieldCache = fieldCache ?? throw new ArgumentNullException(nameof(fieldCache));
 
         public async Task<FileInfo> QueryIndex(Guid containerId, Guid modelSetId, uint version, string selectQuery)
@@ -36,7 +35,7 @@ namespace MCSample.Model
             {
                 using (var sc = await CreateServiceProvider())
                 {
-                    var client = sc.GetRequiredService<IIndexClientV1>();
+                    var client = sc.GetRequiredService<IIndexClient>();
 
                     this.ResetStopwatch();
                     this.StartStopwatch();
@@ -110,7 +109,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IIndexClientV1>();
+                var client = sc.GetRequiredService<IIndexClient>();
 
                 return await client.QueryModelSetVersionIndexManifestAsync(containerId, modelSetId, (int)version);
             }
@@ -122,7 +121,7 @@ namespace MCSample.Model
             {
                 using (var sc = await CreateServiceProvider())
                 {
-                    var client = sc.GetRequiredService<IIndexClientV1>();
+                    var client = sc.GetRequiredService<IIndexClient>();
 
                     var resource = await client.QueryModelSetVersionIndexFieldsAsync(containerId, modelSetId, (int)version);
 

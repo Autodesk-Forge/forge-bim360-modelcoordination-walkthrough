@@ -11,10 +11,10 @@ namespace MCQuery.Command
     [Export(typeof(IConsoleCommand))]
     internal sealed class QueryIndexCommand : CurrentStateCommand
     {
-        private readonly IIndexClient _indexClient;
+        private readonly IForgeIndexClient _indexClient;
 
         [ImportingConstructor]
-        public QueryIndexCommand(IIndexClient indexClient) => _indexClient = indexClient ?? throw new ArgumentNullException(nameof(indexClient));
+        public QueryIndexCommand(IForgeIndexClient indexClient) => _indexClient = indexClient ?? throw new ArgumentNullException(nameof(indexClient));
 
         public override string Display => "Run index query";
 

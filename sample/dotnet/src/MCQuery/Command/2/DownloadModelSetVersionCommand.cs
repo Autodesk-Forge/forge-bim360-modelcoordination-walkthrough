@@ -13,10 +13,10 @@ namespace MCQuery.Command
     [Export(typeof(IConsoleCommand))]
     internal sealed class DownloadModelSetVersionCommand : CurrentStateCommand
     {
-        private readonly IModelSetClient _modelSetClient;
+        private readonly IForgeModelSetClient _modelSetClient;
 
         [ImportingConstructor]
-        public DownloadModelSetVersionCommand(IModelSetClient modelSetClient) => _modelSetClient = modelSetClient ?? throw new ArgumentNullException(nameof(modelSetClient));
+        public DownloadModelSetVersionCommand(IForgeModelSetClient modelSetClient) => _modelSetClient = modelSetClient ?? throw new ArgumentNullException(nameof(modelSetClient));
 
         public override string Display => "Download model set version";
 

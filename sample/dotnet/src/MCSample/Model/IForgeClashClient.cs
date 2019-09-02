@@ -1,4 +1,4 @@
-﻿using Autodesk.Nucleus.Clash.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.Clash;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MCSample.Model
 {
-    public interface IClashClient
+    public interface IForgeClashClient
     {
         Task<ClashTestSummaryCollection> GetModelSetClashTests(Guid containerId, Guid modelSetId, int? pageLimit = default, string continuationToken = default);
 
@@ -28,6 +28,6 @@ namespace MCSample.Model
 
         Task<IReadOnlyCollection<ClosedClashGroupClashData>> GetClosedClashGroupDetailBatch(Guid containerId, Guid testId, IEnumerable<Guid> identities);
 
-        Task<Autodesk.Nucleus.Clash.Client.V3.FileResponse> GetScreenShotAsync(Guid containerId, Guid modelSetId, Guid screenShotId);
+        Task<FileResponse> GetScreenShotAsync(Guid containerId, Guid modelSetId, Guid screenShotId);
     }
 }
