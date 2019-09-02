@@ -1,4 +1,4 @@
-﻿using Autodesk.Nucleus.Scopes.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.ModelSet;
 using MCCommon;
 using MCSample;
 using MCSample.Forge;
@@ -39,7 +39,7 @@ namespace ModelSetViews
 
             using (var ctx = ForgeAppContext.Create())
             {
-                var msClient = ctx.ExportService<IModelSetClient>();
+                var msClient = ctx.ExportService<IForgeModelSetClient>();
 
                 /*
                  * Load the cached model set state from the CreateModelSet.dll console app
@@ -93,8 +93,7 @@ namespace ModelSetViews
 
                         if (modelSetTipVersion != null && modelSetTipVersion?.DocumentVersions.Count > 1)
                         {
-                            var lineages = new ModelSetViewLineageUrns();
-                            lineages.AddRange(modelSetTipVersion.DocumentVersions.Take(2).Select(d => d.DocumentLineage.LineageUrn));
+                            var lineages = modelSetTipVersion.DocumentVersions.Take(2).Select(d => d.DocumentLineage.LineageUrn).ToList();
 
                             var modelSetView = new NewModelSetView
                             {

@@ -1,4 +1,4 @@
-﻿using Autodesk.Nucleus.Scopes.Client.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.ModelSet;
 using MCCommon;
 using MCSample;
 using MCSample.Forge;
@@ -78,7 +78,7 @@ namespace TestEnvironmentSetup
                 },
                 $"GET Sample file folder");
 
-                var msClient = ctx.ExportService<IModelSetClient>();
+                var msClient = ctx.ExportService<IForgeModelSetClient>();
 
                 await ConsoleExt.DoConsoleAction(async () =>
                 {
@@ -86,7 +86,7 @@ namespace TestEnvironmentSetup
                     {
                         var container = await msClient.GetContainer(forgeClient.Configuration.Project);
                     }
-                    catch (ScopesException ex)
+                    catch (ModelSetException ex)
                     {
                         if (ex.StatusCode == 401)
                         {

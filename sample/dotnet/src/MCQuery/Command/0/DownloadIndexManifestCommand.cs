@@ -13,12 +13,12 @@ namespace MCQuery.Command
     [Export(typeof(IConsoleCommand))]
     internal sealed class DownloadIndexManifestCommand : CommandBase
     {
-        private readonly IIndexClient _indexClient;
+        private readonly IForgeIndexClient _indexClient;
 
         private LastQueryState _lastQueryState;
 
         [ImportingConstructor]
-        public DownloadIndexManifestCommand(IIndexClient indexClient) => _indexClient = indexClient ?? throw new ArgumentNullException(nameof(indexClient));
+        public DownloadIndexManifestCommand(IForgeIndexClient indexClient) => _indexClient = indexClient ?? throw new ArgumentNullException(nameof(indexClient));
 
         public override string Display => "Save index manifest for query to file";
 

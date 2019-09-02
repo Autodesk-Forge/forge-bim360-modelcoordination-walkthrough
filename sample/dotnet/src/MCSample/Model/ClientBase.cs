@@ -8,11 +8,11 @@ namespace MCSample.Model
 {
     internal abstract class ClientBase
     {
-        private readonly IModelCoordinationServiceCollectionFactory _serviceCollecitonFactory;
+        private readonly IForgeAppServiceCollectionFactory _serviceCollecitonFactory;
 
         private readonly Stopwatch _stopwatch = new Stopwatch();
 
-        protected ClientBase(IModelCoordinationServiceCollectionFactory serviceCollecitonFactory)
+        protected ClientBase(IForgeAppServiceCollectionFactory serviceCollecitonFactory)
         {
             _serviceCollecitonFactory = serviceCollecitonFactory ?? throw new ArgumentNullException(nameof(serviceCollecitonFactory));
         }

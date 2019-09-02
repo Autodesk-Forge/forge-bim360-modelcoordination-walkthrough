@@ -13,7 +13,7 @@ namespace MCQuery
                 new Assembly[]
                 {
                     Assembly.GetExecutingAssembly(),
-                    typeof(IIndexClient).Assembly
+                    typeof(IForgeIndexClient).Assembly
                 });
         }
     }

@@ -1,5 +1,4 @@
-﻿using Autodesk.Nucleus.Scopes.Client.V3;
-using Autodesk.Nucleus.Scopes.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.ModelSet;
 using MCSample.Service;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -11,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace MCSample.Model
 {
-    [Export(typeof(IModelSetClient))]
-    internal sealed class ModelSetClient : ClientBase, IModelSetClient
+    [Export(typeof(IForgeModelSetClient))]
+    internal sealed class ForgeModelSetClient : ClientBase, IForgeModelSetClient
     {
         [ImportingConstructor]
-        public ModelSetClient(IModelCoordinationServiceCollectionFactory serviceCollecitonFactory)
+        public ForgeModelSetClient(IForgeAppServiceCollectionFactory serviceCollecitonFactory)
             : base(serviceCollecitonFactory)
         {
         }
@@ -24,7 +23,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 return await client.GetContainerAsync(containerId);
             }
@@ -34,7 +33,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 var status = await RunJob(
                     () => client.CreateModelSetAsync(
@@ -62,7 +61,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 throw new NotImplementedException();
             }
@@ -72,7 +71,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 return await client.GetModelSetAsync(containerId, modelSetId);
             }
@@ -82,7 +81,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 return await client.GetModelSetVersionsAsync(containerId, modelSetId, pageLimit, continuationToken);
             }
@@ -92,7 +91,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 return await client.GetModelSetVersionAsync(containerId, modelSetId, (int)version);
             }
@@ -102,7 +101,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 return await client.GetModelSetVersionLatestAsync(containerId, modelSetId);
             }
@@ -123,7 +122,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 return await client.GetModelSetViewsAsync(containerId, modelSetId, pageLimit, continuationToken, createdBy, modifiedBy, after, before, isPrivate, sortBy, sortDirection);
             }
@@ -133,7 +132,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 var status = await RunJob(
                     () => client.CreateModelSetViewAsync(containerId, modelSetId, view),
@@ -153,7 +152,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 var status = await RunJob(
                     () => client.UpdateModelSetViewAsync(containerId, modelSetId, viewId, updatedView),
@@ -173,7 +172,7 @@ namespace MCSample.Model
         {
             using (var sc = await CreateServiceProvider())
             {
-                var client = sc.GetRequiredService<IScopesClientV3>();
+                var client = sc.GetRequiredService<IModelSetClient>();
 
                 return await client.GetModelSetViewVersionAsync(containerId, modelSetId, (int)version, viewId);
             }

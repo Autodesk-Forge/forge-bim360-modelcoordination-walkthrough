@@ -34,8 +34,8 @@ namespace QueryClashTestResults
 
             using (var ctx = ForgeAppContext.Create())
             {
-                var mcClient = ctx.ExportService<IModelSetClient>();
-                var clashClient = ctx.ExportService<IClashClient>();
+                var mcClient = ctx.ExportService<IForgeModelSetClient>();
+                var clashClient = ctx.ExportService<IForgeClashClient>();
 
                 /*
                  * Load the cached model set state from the CreateModelSet.dll console app

@@ -1,6 +1,6 @@
-﻿using Autodesk.Nucleus.Clash.Client.V3;
-using Autodesk.Nucleus.Index.Client.V1;
-using Autodesk.Nucleus.Scopes.Client.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.Clash;
+using Autodesk.Forge.Bim360.ModelCoordination.Index;
+using Autodesk.Forge.Bim360.ModelCoordination.ModelSet;
 using MCCommon;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 namespace MCSample.Service
 {
     [Shared]
-    [Export(typeof(IModelCoordinationServiceCollectionFactory))]
-    public class ModelCoordinationServiceCollectionFactory : IModelCoordinationServiceCollectionFactory
+    [Export(typeof(IForgeAppServiceCollectionFactory))]
+    public class ForgeAppServiceCollectionFactory : IForgeAppServiceCollectionFactory
     {
         private readonly IForgeAppConfigurationManager _configManager;
 
         private readonly Lazy<Task<ForgeAppConfiguration>> _lazyDefaultConfiguraitonTask;
 
         [ImportingConstructor]
-        public ModelCoordinationServiceCollectionFactory(IForgeAppConfigurationManager configManager)
+        public ForgeAppServiceCollectionFactory(IForgeAppConfigurationManager configManager)
         {
             _configManager = configManager ?? throw new ArgumentNullException(nameof(configManager));
 
@@ -37,13 +37,13 @@ namespace MCSample.Service
 
             var config = await GetConfiguration();
 
-            sc.AddHttpClient<IIndexClientV1, IndexClientV1>(options => options.BaseAddress = config.NucleusLegacyBasePath)
+            sc.AddHttpClient<IIndexClient, IndexClient>(options => options.BaseAddress = config.NucleusLegacyBasePath)
               .AddTokenManagerDelegatingHandler();
 
-            sc.AddHttpClient<IScopesClientV3, ScopesClientV3>(options => options.BaseAddress = config.NucleusModelSetBasePath)
+            sc.AddHttpClient<IModelSetClient, ModelSetClient>(options => options.BaseAddress = config.NucleusModelSetBasePath)
               .AddTokenManagerDelegatingHandler();
 
-            sc.AddHttpClient<IClashClientV3, ClashClientV3>(options => options.BaseAddress = config.NucleusClashBasePath)
+            sc.AddHttpClient<IClashClient, ClashClient>(options => options.BaseAddress = config.NucleusClashBasePath)
               .AddTokenManagerDelegatingHandler();
 
             return sc.BuildServiceProvider();

@@ -1,4 +1,4 @@
-﻿using Autodesk.Nucleus.Clash.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.Clash;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,12 +12,12 @@ namespace MCSample.Model.Cosmo
     [Export(typeof(IRevitClashReportBuilder))]
     public class RevitClashReportBuilder : IRevitClashReportBuilder
     {
-        private readonly IModelSetClient _modelSetClient;
-        private readonly IClashClient _clashClient;
+        private readonly IForgeModelSetClient _modelSetClient;
+        private readonly IForgeClashClient _clashClient;
         private readonly IRevitObjectQuery _revitQuery;
 
         [ImportingConstructor]
-        public RevitClashReportBuilder(IModelSetClient modelSetClient, IClashClient clashClient, IRevitObjectQuery revitQuery)
+        public RevitClashReportBuilder(IForgeModelSetClient modelSetClient, IForgeClashClient clashClient, IRevitObjectQuery revitQuery)
         {
             _modelSetClient = modelSetClient ?? throw new System.ArgumentNullException(nameof(modelSetClient));
             _clashClient = clashClient ?? throw new System.ArgumentNullException(nameof(clashClient));

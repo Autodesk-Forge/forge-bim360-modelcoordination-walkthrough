@@ -1,4 +1,4 @@
-﻿using Autodesk.Nucleus.Clash.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.Clash;
 using MCSample.Model;
 using Newtonsoft.Json;
 using System;

@@ -1,4 +1,4 @@
-﻿using Autodesk.Nucleus.Scopes.Entities.V3;
+﻿using Autodesk.Forge.Bim360.ModelCoordination.ModelSet;
 using MCCommon;
 using MCSample;
 using MCSample.Forge;
@@ -35,7 +35,7 @@ namespace QueryModelSet
 
             using (var ctx = ForgeAppContext.Create())
             {
-                var mcClient = ctx.ExportService<IModelSetClient>();
+                var mcClient = ctx.ExportService<IForgeModelSetClient>();
 
                 /*
                  * Load the cached model set state from the CreateModelSet.dll console app

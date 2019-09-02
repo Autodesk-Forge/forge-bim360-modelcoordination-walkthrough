@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,9 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="Autodesk.Forge" Version="1.5.2" />
-    <PackageReference Include="Autodesk.Nucleus.Clash.Client.V3" Version="3.3.12" />
-    <PackageReference Include="Autodesk.Nucleus.Index.Client.V1" Version="1.1.2" />
-    <PackageReference Include="Autodesk.Nucleus.Scopes.Client.V3" Version="3.0.34" />
+    <PackageReference Include="Autodesk.Forge.Bim360.ModelCoordination.Clash" Version="3.3.12" />
+    <PackageReference Include="Autodesk.Forge.Bim360.ModelCoordination.Index" Version="1.2.0" />
+    <PackageReference Include="Autodesk.Forge.Bim360.ModelCoordination.ModelSet" Version="3.0.40" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />

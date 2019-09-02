@@ -33,7 +33,7 @@ namespace QueryAssignedClosedClash
 
             using (var ctx = ForgeAppContext.Create())
             {
-                var clashClient = ctx.ExportService<IClashClient>();
+                var clashClient = ctx.ExportService<IForgeClashClient>();
 
                 await ConsoleExt.DoConsoleAction(async () =>
                 {
