@@ -37,13 +37,13 @@ namespace MCSample.Service
 
             var config = await GetConfiguration();
 
-            sc.AddHttpClient<IIndexClient, IndexClient>(options => options.BaseAddress = config.NucleusLegacyBasePath)
+            sc.AddHttpClient<IIndexClient, IndexClient>(options => options.BaseAddress = config.ModelSetIndexApiBasePath)
               .AddTokenManagerDelegatingHandler();
 
-            sc.AddHttpClient<IModelSetClient, ModelSetClient>(options => options.BaseAddress = config.NucleusModelSetBasePath)
+            sc.AddHttpClient<IModelSetClient, ModelSetClient>(options => options.BaseAddress = config.ModelSetApiBasePath)
               .AddTokenManagerDelegatingHandler();
 
-            sc.AddHttpClient<IClashClient, ClashClient>(options => options.BaseAddress = config.NucleusClashBasePath)
+            sc.AddHttpClient<IClashClient, ClashClient>(options => options.BaseAddress = config.ClashApiBasePath)
               .AddTokenManagerDelegatingHandler();
 
             return sc.BuildServiceProvider();
