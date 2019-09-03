@@ -1,5 +1,32 @@
 ﻿# MCQuery
 
+The MCQuery application can be used to interactively run model set version index queries and manipulate their results. It also provides a mechanism for downloading model set version JSON, model set version clash results and model derivatives.
+
+```
+------------------------------------
+    Model Coordination Query API
+------------------------------------
+
+   1. Search index fields
+   2. Run index query
+   3. Print last index query to console
+   4. Pretty print last index query to console
+   5. Export last index query to CSV
+   6. Save index manifest for query to file
+   7. Display last query details
+   8. Export last index query to NDJSON
+
+   9. Download model derivative manifest
+  10. Download model derivative
+
+  11. Download model set version
+  12. Download clash test resources
+
+  13. Exit
+
+Select :                                                        
+```
+
 ## Sample Queries
 
 Count the number of rows in the index.
@@ -14,46 +41,20 @@ Get the first 500 objects in the index
 select s.* from s3object s limit 500
 ```
 
-Get the file, manifest database, object ID and name for every row which has a name.
+Get the first 50 rows which have a name.
 
 ```sql
-select s.file,
-       s.db,
-       s.id,
-       s.p153cb174
-from s3object s
-where s.p153cb174 != ''
+select * from s3object s where s.p153cb174 is not missing limit 50
 ```
 
-Get the file, manifest database, object ID, name and Revit category, family and type for every row which has a category, family and type defined.
+Get the first 50 rows which have a Revit category, family and type.
 
 ```sql
-select s.file,
-       s.db, 
-       s.id,
-       s.p153cb174,
-       s.p20d8441e,
-       s.p30db51f9,
-       s.p13b6b3a0
-from s3object s
-where s.p20d8441e != ''
-and  s.p30db51f9 != ''
-and s.p13b6b3a0 != ''
+select * from s3object s where s.p20d8441e is not missing and s.p30db51f9 is not missing and s.p13b6b3a0 is not missing limit 50
 ```
 
-Get the file, manifest database, object ID, `__viewable_in__`,  name and Revit category, family and type for every row which has a category, family and type defined.
+Get the first 50 rows which have a Revit category, family and type and are viewable in more than one view in the original seed file.
 
 ```sql
-select s.file,
-       s.db,
-       s.id,
-       s.pc96e2dfc,
-       s.p153cb174,
-       s.p20d8441e,
-       s.p30db51f9,
-       s.p13b6b3a0
-from s3object s
-where s.p20d8441e != ''
-and  s.p30db51f9 != ''
-and s.p13b6b3a0 != ''
+select * from s3object s where s.p20d8441e is not missing and s.p30db51f9 is not missing and s.p13b6b3a0 is not missing and count(s.docs) > 1 limit 50
 ```

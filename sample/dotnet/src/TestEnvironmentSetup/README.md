@@ -6,8 +6,8 @@ This .NET core console application checks that the development environment has b
 
 ### Dependencies
 
-- A default ForgeApp has been configured with a Hub (Account) and Project GUID
-- A cached OAuth user token has been set
+- [A default ForgeApp has been configured with a Hub (Account) and Project GUID](../../../../doc/forge-app-setup.md)
+- A cached OAuth user token has been set, windows users can use [MCAuth](../../../../tools/dotnet/src/MCAuth/README.md)
 
 ### Build and Run
 
@@ -20,7 +20,7 @@ This .NET core console application checks that the development environment has b
 
 ### Code Walk-through
 
-This code makes extensive use of .NET Core's in-build dependency injection framework, [`System.Composition`](https://docs.microsoft.com/en-us/dotnet/api/system.composition). If you are not familiar with this namespace you can find a quick overview [here](../../../../doc/system-composition-explained.md). The [`MCSample.ForgeAppContext`](../MCSample/Forge/ForgeAppContext.cs) class is responsible for composting the dependency injection container.
+This code makes extensive use of .NET Core's in-built dependency injection framework, [`System.Composition`](https://docs.microsoft.com/en-us/dotnet/api/system.composition). If you are not familiar with this namespace you can find a quick overview [here](../../../../doc/system-composition-explained.md). The [`MCSample.ForgeAppContext`](../MCSample/Forge/ForgeAppContext.cs) class is responsible for composting the dependency injection container.
 
 ```csharp
 using (var ctx = ForgeAppContext.Create())
@@ -49,6 +49,8 @@ var project = await client.GetProject() ?? throw new InvalidOperationException("
 Assert.True(SampleFileManager.StateDirectory.Exists, $"Could not find tmp state folder {SampleFileManager.StateDirectory.FullName}");
 
 Assert.True(SampleFileManager.SampleDirectory.Exists, $"Could not find sample file folder {SampleFileManager.SampleDirectory.FullName}");
+
+var container = await msClient.GetContainer(forgeClient.Configuration.Project);
 ```
 
 ---

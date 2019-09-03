@@ -14,7 +14,7 @@ namespace MCConfig.Command
         [ImportingConstructor]
         public SetDefaultEnvironmentCommand(IForgeAppConfigurationManager configManager) => _configManager = configManager ?? throw new ArgumentNullException(nameof(configManager));
 
-        public override string Display => "Set defalt Forge App configuration";
+        public override string Display => "Set default Forge App configuration";
 
         public override uint Group => 1;
 
