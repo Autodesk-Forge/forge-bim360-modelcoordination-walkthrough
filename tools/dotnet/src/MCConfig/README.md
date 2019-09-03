@@ -8,7 +8,7 @@ The samples provided in this repo are a mixture of .NET Core and NodeJS. Dependi
 
 ### Windows Only
 
-- [.NET 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472) required for building full-fat .NET Forge authentication tooling
+- [.NET 4.8](https://dotnet.microsoft.com/download/thank-you/net48-developer-pack) required for building full-fat .NET Forge authentication tooling
 - [Visual Studio 2019](https://visualstudio.microsoft.com/vs/) for building full-fat .NET WPF samples and .NET Core sample solutions.
 
 ### OS X
@@ -41,7 +41,7 @@ $ > dotnet run
 
 ### Main Menu
 
-On successfully running MCConfig you will be presented with the following options. Option 7 allows you to use the values you obtained from [setting up your Forge App](forge-app-setup.md) to configure you local development environment(s).
+On successfully running MCConfig you will be presented with various options. Option 1 allows you to use the values you obtained from [setting up your Forge App](forge-app-setup.md) to configure you local development environment(s). Option 4 allows you to set the default environment (`dev`, `stg` or `prod`). External users will always typically ues `prod`
 
 ```
 ----------------------------------------------------------
@@ -62,7 +62,7 @@ On successfully running MCConfig you will be presented with the following option
 
   10. Exit
 
-Select :                                                        
+Select :                                                 
 ```
 
 The MCConfig utility manages the `.nucleus` folder in your user home folder. If you are running PowerShell Core you can find the location of this folder with the following command line :-
@@ -86,17 +86,31 @@ The environment configuration files have the following format :-
 {
   "Account": "the-bim-360-account-GUID-you-will-be-using-with-the-samples",
   "Project": "the-bim-360-project-GUID-you-will-be-using-with-the-samples",
-  "ClientId": "your-forge-app-client-id",
-  "Secret": "your-forge-app-client-secret",
-  "CallbackUrl": "your-forge-app-client-url"
+  "ForgeBimHubId": "b.the-bim-360-account-GUID-you-will-be-using-with-the-samples",
+  "ForgeBimProjectId": "b.the-bim-360-project-GUID-you-will-be-using-with-the-samples",
+  "ClientId": "forge-app-client-id",
+  "Secret": "forge-app-secret",
+  "CallbackUrl": "forge-app-callback-url",
+  "IsDefault": true|false
 }
 ```
 
-You are free to create UTF-8 encoded versions of these files manually. Un less you are an Autodesk developer or partner you are unlikely to have access to Autodesk's staging and development environments. These samples have all been created assuming you are using the production (public) version of Autodesk Forge.
+e.g.
 
-## Cached OAuth Tokens
+```json
+{
+  "Account": "f005a243-96e5-41f5-bd4f-bar68a790b0b",
+  "Project": "f00cef12-deef-4771-9feb-bar5643e3b0b",
+  "ForgeBimHubId": "b.f005a243-96e5-41f5-bd4f-bar68a790b0b",
+  "ForgeBimProjectId": "b.f00cef12-deef-4771-9feb-bar5643e3b0b",
+  "ClientId": "uioaslkhdlashdgb3udAhOzrnSTp47JZdo",
+  "Secret": "HKKFY8AAQrOgAys753",
+  "CallbackUrl": "https://foo-bar.com/aok",
+  "IsDefault": true
+}
+```
 
-In order to run the code samples included in this repository you will need to place a cached OAuth token in the `\{user_home}\.nucleus\token` file on the local machine. MCConfig can be used to read and write this file however it cannot be used to obtain a Forge OAuth 2.0 user token. There are two options for obtaining this token. On Windows machines uses the [MCAuth](dev-machine-mcauth.md) WPF application. Or alternatively use the [instructions on the Forge developer portal](https://stg.forge.autodesk.com/en/docs/oauth/v2/tutorials/get-3-legged-token/) to obtain an appropriate user token. 
+You are free to create UTF-8 encoded versions of these files manually. Unless you are an Autodesk developer or partner you are unlikely to have access to Autodesk's staging and development environments. These samples have all been created assuming you are using the production (public) version of Autodesk Forge.
 
 ---
-[home](../../../../README.md)
+[back](../../../../README.md)
