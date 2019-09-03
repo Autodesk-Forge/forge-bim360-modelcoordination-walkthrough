@@ -13,6 +13,7 @@ Before getting started with the Model Coordination API users are encouraged to f
 - [Creating and registering a Forge Application with a BIM 360 Account](doc/forge-app-setup.md)
 - [Setting up the developer environment](tools/dotnet/src/MCConfig/README.md)
 - [Using MCAuth on Windows to manage cached tokens](tools/dotnet/src/MCAuth/README.md)
+- [Using Postman to get a Forge OAuth token](./doc/postman-forge-token.md)
 
 ## Samples
 
