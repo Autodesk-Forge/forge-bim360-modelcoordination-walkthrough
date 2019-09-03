@@ -48,9 +48,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. Query Moel Set Index", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryModelSetVersionIndex", "src\QueryModelSetVersionIndex\QueryModelSetVersionIndex.csproj", "{B0B8F580-4337-4FAB-9271-B59B69A47E38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryAssignedClosedClash", "src\QueryAssignedClosedClash\QueryAssignedClosedClash.csproj", "{E71AE07E-2E5C-4824-9ADA-0900B76B4BAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryAssignedClosedClash", "src\QueryAssignedClosedClash\QueryAssignedClosedClash.csproj", "{E71AE07E-2E5C-4824-9ADA-0900B76B4BAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8. Query Assigned and Closed Clash Groups", "8. Query Assigned and Closed Clash Groups", "{F2C9FA5F-D216-45DA-968A-7B62F4E3D1F9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreeterApp", "src\GreeterApp\GreeterApp.csproj", "{F44B5290-4AE4-4C8A-8EAC-B2256A18EBAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +108,10 @@ Global
 		{E71AE07E-2E5C-4824-9ADA-0900B76B4BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E71AE07E-2E5C-4824-9ADA-0900B76B4BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E71AE07E-2E5C-4824-9ADA-0900B76B4BAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F44B5290-4AE4-4C8A-8EAC-B2256A18EBAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F44B5290-4AE4-4C8A-8EAC-B2256A18EBAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F44B5290-4AE4-4C8A-8EAC-B2256A18EBAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F44B5290-4AE4-4C8A-8EAC-B2256A18EBAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +129,7 @@ Global
 		{E44B143C-D671-4B2D-A4E5-7695FE98DE8B} = {A354E188-BD9D-4736-A4CF-B8AA537F91F5}
 		{B0B8F580-4337-4FAB-9271-B59B69A47E38} = {2EB0DFE5-9C1D-45EC-A4D9-940C3162CE87}
 		{E71AE07E-2E5C-4824-9ADA-0900B76B4BAC} = {F2C9FA5F-D216-45DA-968A-7B62F4E3D1F9}
+		{F44B5290-4AE4-4C8A-8EAC-B2256A18EBAE} = {C847BA4C-DCFC-466E-8455-48719650F20A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73CD1936-66C4-4EF6-867B-61A5585467A4}

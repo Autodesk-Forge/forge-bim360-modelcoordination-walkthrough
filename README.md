@@ -26,17 +26,29 @@ All of the .NET Core samples are console applications. If you are using Visual S
 PS > ii .\sample\dotnet\mc-sample.sln
 ```
 
-The samples are designed to build on one another's output and therefore should be executed in odder. If you are not using Visual Studio you will find `dotnet` instructions for running each sample from the command line in the following pages :-
+The samples are designed to build on each others output and therefore should be executed in order. If you are not using Visual Studio you will find `dotnet` instructions for running each sample from the command line in the following pages :-
 
+### The Basics
 
-| Sample | Description |
-| --- | --- |
-| [Environment setup check](sample/dotnet/src/TestEnvironmentSetup/README.md)|Not strictly a sample. Instead it does a sanity check of the current developer environment to determine if samples can execute|
+|Sample|Description|
+|---|---|
+|[Environment setup check](sample/dotnet/src/TestEnvironmentSetup/README.md)|Not strictly a sample. Instead it does a sanity check of the current developer environment to determine if samples can execute|
 |[Creating and Querying Model Sets](sample/dotnet/src/CreateModelSet/README.md)|How to create a model set and upload files to the model set service|
 |[Creating and Querying Model Set Views](sample/dotnet/src/ModelSetViews/README.md)|How to create and modify model set views|
+
+
+### Working with Data
+
+|Sample|Description|
+|---|---|
 |[Querying Model Set Versions](sample/dotnet/src/QueryModelSet/README.md)|How to query model set versions for a give model set, including querying a specific model set version or the latest tip version.|
 |[Querying Model Set Version Clash Results](sample/dotnet/src/QueryClashTestResults/README.md)|How to work with the different resource files comprising the clash test results for a give model set version|
-|[Querying Model Set Indexes](sample/dotnet/src/QueryModelSetVersionIndex/README.md)|How to run BIM property queries against model set BIN property indexes|
-|[Putting it all together: Azure Cosmos DB & Power BI](sample/dotnet/src/CosmoDbUploader/README.md)|How to use the APIs to classify clash results, upload these data to Azure Cosmos and visualize clash in Microsoft Power BI|
-|[Putting it all together: Assigned & Closed Clash Groups](sample/dotnet/src/QueryAssignedClosedClash/README.md)|How to use the APIs to query clashs which have been assigned to BIM 360 issues or marked as closed|
+|[Querying Model Set Version Indexes](sample/dotnet/src/QueryModelSetVersionIndex/README.md)|How to run BIM property queries against model set BIN property indexes|
+
+### Putting It All Together
+
+|Sample|Description|
+|---|---|
+|[Azure Cosmos DB & Power BI](sample/dotnet/src/CosmoDbUploader/README.md)|How to use the APIs to classify clash results, upload these data to Azure Cosmos and visualize clash in Microsoft Power BI|
+|[Assigned & Closed Clash Groups](sample/dotnet/src/QueryAssignedClosedClash/README.md)|How to use the APIs to query clashes which have been assigned to BIM 360 issues or marked as closed|
 

@@ -101,59 +101,67 @@ The `ImportingConstructorAttribute`, ie. `[ImportingConstructor]` constructor at
 
 Finally the `SharedAttribute`, `[Shared]` tells the `System.Composition` infrastructure to only ever instantiate one instance of this type and re-use it every time someone asks for and export which can be satisfied by this singleton.
 
-When it comes to the examples there are two. The first uses another `System.Composition` injection feature, namely `ImportManyAttribute`, `[ImportMany]`. This is used in conjunction with `[ImportingConstructor]` to inject collections into type constructors, in this case a collection of `IEnumerable<IGreeter>`.
+When it comes to the examples there are two. The first uses another `System.Composition` injection feature, namely `ImportManyAttribute`, `[ImportMany]`. This is used in conjunction with `[ImportingConstructor]` to inject collections into type constructors, in this case a collection of `IEnumerable<IGreeter>`. This results in _automatic_ composition. The container automatically satisfies the type's imports as part of the export of the type i.e. in order to create an instance of the `ImportManyWithAutomaticCompositionExample` type which implements the `IExample` interface the composition container will first interrogate its parts catalogue (to use System.Composition's terminology) to find every part which implements `IGreeter`, instantiate these constituents (or get references to singleton instances, the `[Shared]` attribute) and pass them as an `IEnumerable` collection to `ImportManyWithAutomaticCompositionExample`'s constructor. `[ImportMany]` is only needed if you want to "Import Many", if you just have a single dependency type then no additional markup is needed other than  `[ImportingConstructor]`.
 
 ```csharp
 [Export(typeof(IExample))]
-internal class ImportManyExample : IExample
+internal class ImportManyWithAutomaticCompositionExample : IExample
 {
     private readonly IEnumerable<IGreeter> _greeters;
 
     [ImportingConstructor]
-    public ImportManyExample([ImportMany]IEnumerable<IGreeter> greeters)
+    public ImportManyWithAutomaticCompositionExample([ImportMany]IEnumerable<IGreeter> greeters)
     {
         this._greeters = greeters;
     }
 
     public async Task Run()
     {
+        Console.WriteLine($"Running {nameof(ImportManyWithAutomaticCompositionExample)}...");
+
         foreach (var greeter in this._greeters)
         {
             await greeter.Greet();
         }
+
+        Console.WriteLine();
     }
 }
 ```
 
-The `MetadataExample` type on the other hand, imports the actual composition container, `CompositionContext` and manually interrogates it for exports using the contact names we defined for greeters.
+The `NamedContractWithManualCompositionExample` type on the other hand, imports the actual composition container, `CompositionContext` and manually interrogates it for exports using the contact names we defined for greeters.
 
 ```csharp
 [Export(typeof(IExample))]
-    internal class MetadataExample : IExample
+internal class NamedContractWithManualCompositionExample : IExample
+{
+    private readonly CompositionContext _containerContext = null;
+
+    [ImportingConstructor]
+    public NamedContractWithManualCompositionExample(CompositionContext containerContext)
     {
-        private readonly CompositionContext _containerContext = null;
- 
-        [ImportingConstructor]
-        public MetadataExample(CompositionContext containerContext)
-        {
-            this._containerContext = containerContext;
-        }
- 
-        public async Task Run()
-        {
-            var morning = this._containerContext.GetExport<IGreeter>("morning");
- 
-            await morning.Greet();
- 
-            var afternoon = this._containerContext.GetExport<IGreeter>("afternoon");
- 
-            await afternoon.Greet();
- 
-            var evening = this._containerContext.GetExport<IGreeter>("evening");
- 
-            await evening.Greet();
-        }
+        this._containerContext = containerContext;
     }
+
+    public async Task Run()
+    {
+        Console.WriteLine($"Running {nameof(NamedContractWithManualCompositionExample)}...");
+
+        var morning = this._containerContext.GetExport<IGreeter>("morning");
+
+        await morning.Greet();
+
+        var afternoon = this._containerContext.GetExport<IGreeter>("afternoon");
+
+        await afternoon.Greet();
+
+        var evening = this._containerContext.GetExport<IGreeter>("evening");
+
+        await evening.Greet();
+
+        Console.WriteLine();
+    }
+}
 ```
 
 To run the two examples we build a `CompositionContext` by creating a `ContainerConfiguration` and adding the Assembly which contains our exports. We are then able to export instances of our `IExample` types and execute them.
@@ -171,7 +179,10 @@ class Program
 
         var examples = compositionContainer.GetExports<IExample>();
 
-        Task.WaitAll(examples.Select(e => e.Run()).ToArray());
+        foreach (var example in examples)
+        {
+            example.Run().Wait();
+        }
     }
 }
 ```
@@ -180,166 +191,15 @@ This trivial sample only scratches the surface of `System.Composition` which is 
 
 ## Complete Code Listing
 
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Composition;
-using System.Text;
-using System.Threading.Tasks;
- 
-namespace GreeterApp
-{
-    interface IGreetingWriter
-    {
-        Task Write(string greeting);
-    }
- 
-    [Shared]
-    [Export(typeof(IGreetingWriter))]
-    internal class ConsoleGreetingWriter : IGreetingWriter
-    {
-        public Task Write(string greeting)
-        {
-            return Task.Run(() => Console.WriteLine(greeting));
-        }
-    }
- 
-    interface IGreeter
-    {
-        Task Greet();
-    }
- 
-    internal abstract class Greeter : IGreeter
-    {
-        private readonly IGreetingWriter _writer = null;
- 
-        protected Greeter(IGreetingWriter writer)
-        {
-            this._writer = writer;
-        }
- 
-        public async Task Greet()
-        {
-            await this._writer.Write(this.GetSalutation());
-        }
- 
-        protected abstract string GetSalutation();
-    }
- 
-    [Export(typeof(IGreeter))]
-    [Export("morning", typeof(IGreeter))]
-    internal class MorningGreeter : Greeter
-    {
-        [ImportingConstructor]
-        public MorningGreeter(IGreetingWriter writer)
-            : base(writer)
-        {
-        }
- 
-        protected override string GetSalutation()
-        {
-            return "Good morning! Time to get up.";
-        }
-    }
- 
-    [Export(typeof(IGreeter))]
-    [Export("afternoon", typeof(IGreeter))]
-    internal class AfternoonGreeter : Greeter
-    {
-        [ImportingConstructor]
-        public AfternoonGreeter(IGreetingWriter writer)
-            : base(writer)
-        {
-        }
- 
-        protected override string GetSalutation()
-        {
-            return "Good afternoon! Time for a nap?";
-        }
-    }
- 
-    [Export(typeof(IGreeter))]
-    [Export("evening", typeof(IGreeter))]
-    internal class EveningGreeter : Greeter
-    {
-        [ImportingConstructor]
-        public EveningGreeter(IGreetingWriter writer)
-            : base(writer)
-        {
-        }
- 
-        protected override string GetSalutation()
-        {
-            return "Good evening! Time for bed.";
-        }
-    }
- 
-    interface IExample
-    {
-        Task Run();
-    }
- 
-    [Export(typeof(IExample))]
-    internal class ImportManyExample : IExample
-    {
-        private readonly IEnumerable<IGreeter> _greeters;
- 
-        [ImportingConstructor]
-        public ImportManyExample([ImportMany]IEnumerable<IGreeter> greeters)
-        {
-            this._greeters = greeters;
-        }
- 
-        public async Task Run()
-        {
-            foreach (var greeter in this._greeters)
-            {
-                await greeter.Greet();
-            }
-        }
-    }
- 
-    [Export(typeof(IExample))]
-    internal class MetadataExample : IExample
-    {
-        private readonly CompositionContext _containerContext = null;
- 
-        [ImportingConstructor]
-        public MetadataExample(CompositionContext containerContext)
-        {
-            this._containerContext = containerContext;
-        }
- 
-        public async Task Run()
-        {
-            var morning = this._containerContext.GetExport<IGreeter>("morning");
- 
-            await morning.Greet();
- 
-            var afternoon = this._containerContext.GetExport<IGreeter>("afternoon");
- 
-            await afternoon.Greet();
- 
-            var evening = this._containerContext.GetExport<IGreeter>("evening");
- 
-            await evening.Greet();
-        }
-    }
- 
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            var config = new ContainerConfiguration();
- 
-            config.WithAssembly(Assembly.GetExecutingAssembly());
- 
-            var compositionContainer = config.CreateContainer();
- 
-            var examples = compositionContainer.GetExports<IExample>();
- 
-            Task.WaitAll(examples.Select(e => e.Run()).ToArray());
-        }
-    }
-}
+The complete sample can be found [here](../sample/dotnet/src/GreeterApp).
+
+```powershell
+ PS > cd .\sample\dotnet\src\GreeterApp
+ PS > dotnet restore
+ PS > dotnet build
+ PS > dotnet run
 ```
+
+## And Finally
+
+Incidentally the `[Import]` attribute is also available and can be added to properties on a type, also this sample uses interfaces throughout this is NOT a requirement of `System.Composition`, it is more that happy to use concrete types. This sample only scratches the surface of the full capabilities of `System.Composition` and further reading is recommended.

@@ -20,10 +20,10 @@ This sample demonstrates the creation of a model set in an existing BIM 360 proj
 
 ### Code Walk-through
 
-A `IForgeClient` client has been defined to encapsulate the functionality of [`Autodesk.Forge`](https://www.nuget.org/packages/Autodesk.Forge/) with the intent of making the work of the methods being called clearer.
+A [`IForgeDataClient`](../MCSample/Forge/ForgeDataClient.cs) client has been defined to encapsulate the functionality of [`Autodesk.Forge`](https://www.nuget.org/packages/Autodesk.Forge/) with the intent of making the work of the methods being called clearer.
 
 ```csharp
-var forge = ctx.ExportService<IForgeClient>();
+var forge = ctx.ExportService<IForgeDataClient>();
 ```
 
 As the app executes it caches its progress in an instance of the `CreateModelSetState` type.
@@ -83,7 +83,7 @@ state.ModelSet = await modelSetClient.CreateModelSet(
     });
 ```
 
-Finally the state collected by the execution of this app is saved to disk as described above. This state is used by the other sample apps in this collection. The `SampleFileManager` utility type is used to manage the `.nucleus\state` folder on disk.
+Finally the state collected by the execution of this app is saved to disk as described above. This state is used by the other sample apps in this collection.  [`SampleFileManager.cs`](../MCSample/SampleFileManager.cs) utility type is used to manage the `.nucleus\state` folder on disk.
 
 ```csharp
 await SampleFileManager.SaveState(state);
