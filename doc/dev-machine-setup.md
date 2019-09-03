@@ -8,7 +8,7 @@ The samples provided in this repo are a mixture of .NET Core and NodeJS. Dependi
 
 ### Windows Only
 
-- [.NET 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472) required for building full-fat .NET Forge authentication tooling
+- [.NET 4.8](https://dotnet.microsoft.com/download/thank-you/net48-developer-pack) required for building full-fat .NET Forge authentication tooling
 - [Visual Studio 2019](https://visualstudio.microsoft.com/vs/) for building full-fat .NET WPF samples and .NET Core sample solutions.
 
 ### OS X
