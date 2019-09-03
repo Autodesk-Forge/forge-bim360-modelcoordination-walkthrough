@@ -91,7 +91,7 @@ The environment configuration files have the following format :-
   "ClientId": "forge-app-client-id",
   "Secret": "forge-app-secret",
   "CallbackUrl": "forge-app-callback-url",
-  "IsDefault": true|false
+  "IsDefault": "(true|false)"
 }
 ```
 
