@@ -52,4 +52,4 @@ The samples are designed to build on each others output and therefore should be 
 |---|---|
 |[Azure Cosmos DB & Power BI](sample/dotnet/src/CosmoDbUploader/README.md)|How to use the APIs to classify clash results, upload these data to Azure Cosmos and visualize clash in Microsoft Power BI|
 |[Assigned & Closed Clash Groups](sample/dotnet/src/QueryAssignedClosedClash/README.md)|How to use the APIs to query clashes which have been assigned to BIM 360 issues or marked as closed|
-
+|[Using MCQuery to Explore Data](sample/dotnet/src/MCQuery/README.md)|A utility for working with model set version data, clash results and derivatives|

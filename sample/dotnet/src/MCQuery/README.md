@@ -27,6 +27,20 @@ The MCQuery application can be used to interactively run model set version index
 Select :                                                        
 ```
 
+### Dependencies
+
+- A cached OAuth user token has been set
+- [TestEnvironmentSetup](../TestEnvironmentSetup/README.md) executed successfully
+
+### Build and Run
+
+```powershell
+ PS > cd .\sample\dotnet\src\MCQuery
+ PS > dotnet restore
+ PS > dotnet build
+ PS > dotnet run
+```
+
 ## Sample Queries
 
 Count the number of rows in the index.
