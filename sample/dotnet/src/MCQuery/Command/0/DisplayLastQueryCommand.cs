@@ -12,7 +12,7 @@ namespace MCQuery.Command
     {
         public override string Display => "Display last query details";
 
-        public override uint Order => 7;
+        public override uint Order => 5;
 
         public override async Task DoInput()
         {
@@ -39,6 +39,7 @@ namespace MCQuery.Command
             Console.WriteLine($"Model Set               : {state.ModelSet}");
             Console.WriteLine($"Version                 : {state.Verison}");
             Console.WriteLine($"Query                   : {state.Query}");
+            Console.WriteLine($"Elapsed (ms)            : {state.ElapsedMilliseconds:N0}");
             Console.WriteLine($"Success                 : {state.Success}");
             Console.WriteLine($"Compressed size (bytes) : {resFile.Length}");
 

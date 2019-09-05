@@ -27,7 +27,7 @@ namespace MCQuery.Command
 
         public override string Display => "Export last index query to NDJSON";
 
-        public override uint Order => 8;
+        public override uint Order => 7;
 
         public override async Task DoInput()
         {
@@ -37,7 +37,7 @@ namespace MCQuery.Command
             _fields = (await _fieldCache.Get(_lastQueryState.Container, _lastQueryState.ModelSet, _lastQueryState.Verison)) ??
                 throw new InvalidOperationException("No fields found!");
 
-            Me.OutputPath = SampleFileManager.NewStatePath("out.csv");
+            Me.OutputPath = SampleFileManager.NewStatePath("out.json");
 
             Console.Write($"Output path ({Me.OutputPath.FullName}) : ");
             var path = Console.ReadLine();
