@@ -27,7 +27,7 @@ namespace MCQuery.Command
 
         public override string Display => "Export last index query to CSV";
 
-        public override uint Order => 5;
+        public override uint Order => 8;
 
         public override async Task DoInput()
         {

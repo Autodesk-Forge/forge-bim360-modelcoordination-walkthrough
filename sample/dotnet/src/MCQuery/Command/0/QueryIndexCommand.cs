@@ -60,6 +60,7 @@ namespace MCQuery.Command
             state.ResultPath = file.FullName;
             state.Success = true;
             state.Size = file.Length;
+            state.ElapsedMilliseconds = ElapsedMilliseconds;
 
             await SampleFileManager.SaveState(state);
         }

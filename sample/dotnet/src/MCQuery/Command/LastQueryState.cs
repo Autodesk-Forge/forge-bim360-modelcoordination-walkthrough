@@ -17,5 +17,7 @@ namespace MCQuery.Command
         public bool Success { get; set; }
 
         public string ResultPath { get; set; }
+
+        public long ElapsedMilliseconds { get; set; }
     }
 }
