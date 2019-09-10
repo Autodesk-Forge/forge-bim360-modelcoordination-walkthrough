@@ -93,7 +93,10 @@ namespace ModelSetViews
 
                         if (modelSetTipVersion != null && modelSetTipVersion?.DocumentVersions.Count > 1)
                         {
-                            var lineages = modelSetTipVersion.DocumentVersions.Take(2).Select(d => d.DocumentLineage.LineageUrn).ToList();
+                            var lineages = modelSetTipVersion.DocumentVersions
+                                .Where(v => v.DocumentStatus == ModelSetDocumentStatus.Succeeded)
+                                .Take(2)
+                                .Select(d => d.DocumentLineage.LineageUrn).ToList();
 
                             var modelSetView = new NewModelSetView
                             {
