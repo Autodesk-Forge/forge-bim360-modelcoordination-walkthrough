@@ -135,7 +135,7 @@ namespace MCSample.Model
                         }
                         else
                         {
-                            res = "0";
+                            res = "";
                         }
                     }
                     break;
@@ -148,7 +148,7 @@ namespace MCSample.Model
                         }
                         else
                         {
-                            res = "0.0";
+                            res = "";
                         }
                     }
                     break;
@@ -161,7 +161,7 @@ namespace MCSample.Model
                         }
                         else
                         {
-                            res = "-1";
+                            res = "";
                         }
                     }
                     break;
@@ -174,7 +174,23 @@ namespace MCSample.Model
                         }
                         else
                         {
-                            res = "0";
+                            res = "";
+                        }
+                    }
+                    break;
+
+                case IndexFieldType.BLOB:
+                    {
+                        if (value != null)
+                        {
+                            res = value.ToString()
+                                .Replace(Environment.NewLine, string.Empty)
+                                .Replace(" ", string.Empty)
+                                .Replace(",", "~");
+                        }
+                        else
+                        {
+                            res = "\"\"";
                         }
                     }
                     break;
@@ -188,7 +204,7 @@ namespace MCSample.Model
                         }
                         else
                         {
-                            res = "\"\"";
+                            res = "";
                         }
                     }
                     break;
