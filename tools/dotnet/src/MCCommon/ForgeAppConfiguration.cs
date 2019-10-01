@@ -50,7 +50,10 @@ namespace MCCommon
         public Uri ClashApiBasePath => new Uri($"https://{Host}/bim360/clash/");
 
         [JsonIgnore]
-        public Uri AuthorizeUrl => new Uri($"https://{Host}/authentication/v1/authorize?response_type=code&client_id={ClientId}&redirect_uri={UrlSafeCallbackUrl}&scope=data:read%20data:write");
+        public Uri AuthorizeUrlCode => new Uri($"https://{Host}/authentication/v1/authorize?response_type=code&client_id={ClientId}&redirect_uri={UrlSafeCallbackUrl}&scope=data:read%20data:write");
+
+        [JsonIgnore]
+        public Uri AuthorizeUrlGrant => new Uri($"https://{Host}/authentication/v1/authorize?response_type=grant&client_id={ClientId}&redirect_uri={UrlSafeCallbackUrl}&scope=data:read%20data:write");
 
         [JsonIgnore]
         public string UrlSafeCallbackUrl => HttpUtility.UrlEncode(this.CallbackUrl);

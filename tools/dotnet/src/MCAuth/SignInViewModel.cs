@@ -1,4 +1,5 @@
 ﻿using MCAuth.Auth;
+using MCCommon;
 using System;
 using System.Composition;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace MCAuth
         }
 
         public NavigationService NavigationService { get; set; }
+
+        public string AuthUrl => ForgeAppConfiguration.Current.AuthorizeUrlCode.AbsoluteUri;
 
         public async Task SignInSuccess(string code)
         {

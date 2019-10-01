@@ -18,13 +18,13 @@ namespace MCSample.Model.Cosmo
     public class RevitObject
     {
         [JsonProperty(PropertyName = "file")]
-        public int File { get; set; }
+        public string File { get; set; }
 
         [JsonProperty(PropertyName = "db")]
-        public int DbIndex { get; set; }
+        public string DbIndex { get; set; }
 
         [JsonProperty(PropertyName = "docs")]
-        public int[] DocumentIds { get; set; }
+        public string[] DocumentIds { get; set; }
 
         [JsonProperty(PropertyName = "id")]
         public int ObjectId { get; set; }
@@ -42,6 +42,6 @@ namespace MCSample.Model.Cosmo
         public string Type { get; set; }
 
         [JsonIgnore]
-        public IReadOnlyDictionary<string, int> ViewableMap { get; set; }
+        public IReadOnlyDictionary<string, string> ViewableMap { get; set; }
     }
 }

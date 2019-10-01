@@ -1,6 +1,7 @@
 ﻿using MCCommon;
 using MCSample.Model;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Composition;
 using System.Threading.Tasks;
@@ -31,9 +32,12 @@ namespace MCQuery.Command
         {
             var results = await _indexClient.SearchFields(Me.Container, Me.ModelSetId, (uint)Me.ModelSetVersion, Me.SearchText);
 
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(new StringEnumConverter());
+
             foreach (var res in results)
             {
-                Console.WriteLine(JsonConvert.SerializeObject(res));
+                Console.WriteLine(JsonConvert.SerializeObject(res, settings));
             }
         }
     }

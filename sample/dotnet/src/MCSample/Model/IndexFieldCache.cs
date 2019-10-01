@@ -39,6 +39,7 @@ namespace MCSample.Model
             var fieldMap = new Dictionary<string, IndexField>(StringComparer.OrdinalIgnoreCase)
             {
                 { "file", new IndexField { Key = "file", Name  = "file", Type = IndexFieldType.Integer, Category = "Nucleus" } },
+                { "docs", new IndexField { Key = "docs", Name  = "docs", Type = IndexFieldType.BLOB, Category = "Nucleus" } },
                 { "db", new IndexField { Key = "db", Name  = "db", Type = IndexFieldType.Integer, Category = "Nucleus" } },
                 { "id", new IndexField { Key = "id", Name  = "id", Type = IndexFieldType.Integer, Category = "Nucleus" } },
                 { "checksum", new IndexField { Key = "checksum", Name  = "checksum", Type = IndexFieldType.Integer, Category = "Nucleus" } }

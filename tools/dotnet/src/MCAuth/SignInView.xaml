@@ -3,9 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
       mc:Ignorable="d" 
-      Title="SignInView"
-      Loaded="OnLoaded"
+      Loaded="On_Loaded"
+      Title="SignInView"      
       DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SignInViewModel}">
     
     <Grid>
@@ -18,12 +19,21 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <WebBrowser 
+        <cef:ChromiumWebBrowser 
+            Grid.Row="0" 
+            x:Name="Browser" 
+            Address="{Binding Path=AuthUrl}" 
+            FrameLoadEnd="Browser_FrameLoadEnd"
+            
+            
+            />
+        
+        <!--<WebBrowser 
             Grid.Row="0"
             Grid.Column="0"
             Navigating="OnWebBrowserNavigating" 
             Name="Browser">
-        </WebBrowser>
+        </WebBrowser>-->
 
     </Grid>
 </Page>

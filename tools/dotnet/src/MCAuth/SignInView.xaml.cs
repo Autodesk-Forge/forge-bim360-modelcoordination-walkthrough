@@ -1,7 +1,7 @@
 ﻿using MCCommon;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace MCAuth
 {
@@ -15,25 +15,26 @@ namespace MCAuth
             InitializeComponent();
         }
 
-        private async void OnWebBrowserNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            if (e.Uri.AbsoluteUri.StartsWith(ForgeAppConfiguration.Current.CallbackUrl))
-            {
-                this.Visibility = Visibility.Collapsed;
-
-                e.Cancel = true;
-
-                var code = e.Uri.Query.Split('=')[1];
-
-                await ((SignInViewModel)DataContext).SignInSuccess(code);
-            }
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private void On_Loaded(object sender, RoutedEventArgs e)
         {
             ((SignInViewModel)DataContext).NavigationService = NavigationService;
 
-            this.Browser.Navigate(ForgeAppConfiguration.Current.AuthorizeUrl);
+            NavigationService.RemoveBackEntry();
+        }
+
+        private async void Browser_FrameLoadEnd(object sender, CefSharp.FrameLoadEndEventArgs e)
+        {
+            if (e.Url.StartsWith(ForgeAppConfiguration.Current.CallbackUrl))
+            {
+                await Dispatcher.InvokeAsync(async () =>
+                {
+                    this.Visibility = Visibility.Collapsed;
+
+                    var code = new Uri(e.Url, UriKind.Absolute).Query.Split('=')[1];
+
+                    await ((SignInViewModel)DataContext).SignInSuccess(code);
+                });
+            }
         }
     }
 }
