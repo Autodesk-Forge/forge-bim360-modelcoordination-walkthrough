@@ -63,10 +63,6 @@ namespace MCSample.Model.Cosmo
                 // TODO: remove GroupBy and Select First when data is fixed.
                 obj.ViewableMap =
                     obj.DocumentIds
-                    // hack start
-                    .GroupBy(i => i)
-                    .Select(i => i.First())
-                    // hack end
                     .Select(id => Manifest.SeedFiles.Single(f => f.Id == obj.File).Documents.Single(d => d.Id == id))
                     .ToDictionary(d => d.ViewableId, d => d.Id, StringComparer.OrdinalIgnoreCase);
             }
