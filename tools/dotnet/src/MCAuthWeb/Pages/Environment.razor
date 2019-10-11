@@ -4,7 +4,8 @@
 @using MCCommon
 
 @inject IForgeAppConfigurationManager configManager
-@inject NavigationManager NavigationManager
+@inject NavigationManager navigationManager
+@inject IToastService toastService
 
 <h3>Edit @Target</h3>
 
@@ -44,12 +45,12 @@ else
             <div class="form-group">
                 <label for="project">BIM 360 Project</label>
                 <InputText id="project" @bind-Value="@configuration.Project" class="form-control" />
-
             </div>
 
             <button type="submit" class="btn btn-primary">Save</button>
 
         </EditForm>
+
     </div>
 }
 
@@ -74,6 +75,8 @@ else
     {
         await configManager.SaveEnvironmentConfiguration(configuration.Binding);
 
-        NavigationManager.NavigateTo($"configuration");
+        toastService.ShowSuccess($"Saved {configuration.Binding.Environment} configuration.");
+
+        navigationManager.NavigateTo($"configuration");
     }
 }
