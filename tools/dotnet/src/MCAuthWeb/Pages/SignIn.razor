@@ -1,0 +1,64 @@
+﻿@page "/signin/oauth/callback"
+@page "/signin"
+
+@using MCAuthWeb.Data
+@using MCCommon
+@using MCCommon.Auth
+
+@inject IForgeAppConfigurationManager configManager
+@inject ITokenManager tokenManager
+@inject NavigationManager NavigationManager
+
+<h1>Get token</h1>
+
+@if (NavigationManager.Uri.EndsWith("/signin"))
+{
+<div>
+    <EditForm Model="@environment" OnValidSubmit="@HandleSignIn">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="environment">Select Configuration</label>
+            <InputSelect id="environment" @bind-Value="@environment.Environment" class="form-control">
+                <option value="Production">Production</option>
+                <option value="Staging">Staging (Autodesk only)</option>
+                <option value="Development">Development (Autodesk only)</option>
+            </InputSelect>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Next</button>
+
+    </EditForm>
+</div>
+}
+else if (NavigationManager.Uri.Contains("/signin/oauth/callback"))
+{
+    <p><em>Requesting token...</em></p>
+}
+
+@code {
+
+    private ForgeEnvironmentModel environment = new ForgeEnvironmentModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (NavigationManager.Uri.Contains("/signin/oauth/callback"))
+        {
+            var code = new Uri(NavigationManager.Uri, UriKind.Absolute).Query.Split('=')[1];
+
+            await tokenManager.Configure(code);
+
+            NavigationManager.NavigateTo("/token");
+        }
+    }
+
+    private async Task HandleSignIn()
+    {
+        var env = await configManager.GetEnvironmentConfiguration(environment.Binding);
+
+        ForgeAppConfiguration.Current = env;
+
+        NavigationManager.NavigateTo(ForgeAppConfiguration.Current.AuthorizeUrlCode.AbsoluteUri);
+    }
+}

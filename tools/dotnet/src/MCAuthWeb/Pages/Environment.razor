@@ -1,0 +1,79 @@
+﻿@page "/environment/{target}"
+
+@using MCAuthWeb.Data
+@using MCCommon
+
+@inject IForgeAppConfigurationManager configManager
+@inject NavigationManager NavigationManager
+
+<h3>Edit @Target</h3>
+
+@if (configuration == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+
+        <EditForm Model="@configuration" OnValidSubmit="@HandleValidSave">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="name">Client Key</label>
+                <InputText id="name" @bind-Value="@configuration.Binding.ClientId" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="secret">Secret</label>
+                <InputText id="secret" @bind-Value="@configuration.Binding.Secret" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="callback">Callback</label>
+                <InputText id="callback" @bind-Value="@configuration.Binding.CallbackUrl" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="accoutn">BIM 360 Account</label>
+                <InputText id="account" @bind-Value="@configuration.Account" class="form-control" />
+
+            </div>
+
+            <div class="form-group">
+                <label for="project">BIM 360 Project</label>
+                <InputText id="project" @bind-Value="@configuration.Project" class="form-control" />
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+
+        </EditForm>
+    </div>
+}
+
+@code {
+
+    private ForgeAppModel configuration;
+
+    [Parameter]
+    public string Target { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var env = await configManager.GetEnvironmentConfiguration(Enum.Parse<ForgeEnvironment>(Target));
+
+        configuration = new ForgeAppModel
+        {
+            Binding = env
+        };
+    }
+
+    private async Task HandleValidSave()
+    {
+        await configManager.SaveEnvironmentConfiguration(configuration.Binding);
+
+        NavigationManager.NavigateTo($"configuration");
+    }
+}

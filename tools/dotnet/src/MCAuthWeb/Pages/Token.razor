@@ -1,0 +1,58 @@
+﻿@page "/token"
+
+@using MCAuthWeb.Data
+@using MCCommon
+@using MCCommon.Auth
+
+@inject ITokenManager tokenManager
+@inject NavigationManager navigationManager
+@inject IForgeAppConfigurationManager configManager
+
+@if (token == null)
+{
+    <p><em>Loading token...</em></p>
+}
+else
+{
+<div>
+    <h3>Token</h3>
+    <p class="text-break">@token.AccessToken </p>
+
+    <h3>Expires (UTC)</h3>
+    <p>@token.ExpiresOn.ToString("u")</p>
+    
+    <h3>Refresh Token</h3>    
+    <p>@token.Refresh</p>
+    
+    <p>
+        <button class="btn btn-primary" @onclick="@SaveToken">
+            Save
+        </button>
+        <button class="btn btn-primary" @onclick="@RefreshToken">
+            Refresh
+        </button>
+    </p>
+</div>
+}
+
+@code {
+
+    private MCCommon.Auth.Token token;
+
+    protected override async Task OnInitializedAsync()
+    {
+        token = await tokenManager.GetAccessToken();
+    }
+
+    private async Task SaveToken()
+    {
+        await configManager.CacheToken(token.AccessToken);
+    }
+
+    private async Task RefreshToken()
+    {
+        await tokenManager.GetAccessToken(true);
+
+        navigationManager.NavigateTo("/token", true);
+    }
+}

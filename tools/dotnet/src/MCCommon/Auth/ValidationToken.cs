@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace MCAuth.Auth
+namespace MCCommon.Auth
 {
     [JsonObject]
-    internal class ValidationToken
+    public class ValidationToken
     {
         [JsonProperty(PropertyName = "scope")]
         public string Scope { get; set; }
