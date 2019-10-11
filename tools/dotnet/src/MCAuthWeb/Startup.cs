@@ -13,6 +13,7 @@ using MCAuthWeb.Data;
 using System.Composition.Hosting;
 using System.Reflection;
 using MCCommon;
+using Blazored.Toast;
 
 namespace MCAuthWeb
 {
@@ -32,6 +33,7 @@ namespace MCAuthWeb
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddModelCoordinationCommon();
+            services.AddBlazoredToast();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
