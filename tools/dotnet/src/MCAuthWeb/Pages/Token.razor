@@ -15,15 +15,26 @@
 else
 {
 <div>
-    <h3>Token</h3>
-    <p class="text-break">@token.AccessToken </p>
+    <div class="form-group">
+        <label for="accessToken">Client Key</label>
+        <textarea id="accessToken" class="form-control z-depth-1" rows="8" readonly>@token.AccessToken</textarea>
+    </div>
 
-    <h3>Expires (UTC)</h3>
-    <p>@token.ExpiresOn.ToString("u")</p>
-    
-    <h3>Refresh Token</h3>    
-    <p>@token.Refresh</p>
-    
+    <div class="form-group">
+        <label for="expieryu">Expires In (UTC)</label>
+        <textarea id="expieryu" class="form-control z-depth-1" rows="1" readonly>@token.ExpiresOn.ToString("u")</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="expieryl">Expires In (Local)</label>
+        <textarea id="expieryl" class="form-control z-depth-1" rows="1" readonly>@token.ExpiresOn.ToLocalTime().ToString("u")</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="refreshToken">Refresh Token</label>
+        <textarea id="expiery" class="form-control z-depth-1" rows="1" readonly>@token.Refresh</textarea>
+    </div>
+
     <p>
         <button class="btn btn-primary" @onclick="@SaveToken">
             Save
