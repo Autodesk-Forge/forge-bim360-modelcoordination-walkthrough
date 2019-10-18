@@ -15,8 +15,8 @@ namespace MCAuthWeb.Data
 
         public string Project
         {
-            get => Binding.Account.ToString();
-            set => Binding.Account = Guid.Parse(value);
+            get => Binding.Project.ToString();
+            set => Binding.Project = Guid.Parse(value);
         }
     }
 }

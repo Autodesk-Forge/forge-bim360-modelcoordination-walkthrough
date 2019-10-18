@@ -7,11 +7,11 @@
 
 @inject IForgeAppConfigurationManager configManager
 @inject ITokenManager tokenManager
-@inject NavigationManager NavigationManager
+@inject NavigationManager navigationManager
 
 <h2>Get Forge Token</h2>
 
-@if (NavigationManager.Uri.EndsWith("/signin"))
+@if (navigationManager.Uri.EndsWith("/signin"))
 {
 <div>
     <EditForm Model="@environment" OnValidSubmit="@HandleSignIn">
@@ -32,7 +32,7 @@
     </EditForm>
 </div>
 }
-else if (NavigationManager.Uri.Contains("/signin/oauth/callback"))
+else if (navigationManager.Uri.Contains("/signin/oauth/callback"))
 {
     <p><em>Requesting token...</em></p>
 }
@@ -43,13 +43,17 @@ else if (NavigationManager.Uri.Contains("/signin/oauth/callback"))
 
     protected override async Task OnInitializedAsync()
     {
-        if (NavigationManager.Uri.Contains("/signin/oauth/callback"))
+        if (tokenManager.Configured)
         {
-            var code = new Uri(NavigationManager.Uri, UriKind.Absolute).Query.Split('=')[1];
+            navigationManager.NavigateTo("/token");
+        }
+        else if (navigationManager.Uri.Contains("/signin/oauth/callback"))
+        {
+            var code = new Uri(navigationManager.Uri, UriKind.Absolute).Query.Split('=')[1];
 
             await tokenManager.Configure(code);
 
-            NavigationManager.NavigateTo("/token");
+            navigationManager.NavigateTo("/token");
         }
     }
 
@@ -59,6 +63,6 @@ else if (NavigationManager.Uri.Contains("/signin/oauth/callback"))
 
         ForgeAppConfiguration.Current = env;
 
-        NavigationManager.NavigateTo(ForgeAppConfiguration.Current.AuthorizeUrlCode.AbsoluteUri);
+        navigationManager.NavigateTo(ForgeAppConfiguration.Current.AuthorizeUrlCode.AbsoluteUri);
     }
 }

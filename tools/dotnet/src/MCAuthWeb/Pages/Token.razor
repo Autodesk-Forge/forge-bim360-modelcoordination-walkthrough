@@ -53,6 +53,8 @@ else
 
     private MCCommon.Auth.Token token;
 
+    private bool isRefresh;
+
     protected override async Task OnInitializedAsync()
     {
         token = await tokenManager.GetAccessToken();
@@ -67,10 +69,8 @@ else
 
     private async Task RefreshToken()
     {
-        await tokenManager.GetAccessToken(true);
+        token = await tokenManager.GetAccessToken(true);
 
         toastService.ShowInfo("Token refreshed");
-
-        navigationManager.NavigateTo("/token", true);
     }
 }

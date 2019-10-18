@@ -23,28 +23,33 @@ else
 
             <div class="form-group">
                 <label for="name">Client Key</label>
-                <InputText id="name" @bind-Value="@configuration.Binding.ClientId" class="form-control" />
+                <InputText id="name" @bind-Value="configuration.Binding.ClientId" class="form-control" />
             </div>
 
             <div class="form-group">
                 <label for="secret">Secret</label>
-                <InputText id="secret" @bind-Value="@configuration.Binding.Secret" class="form-control" />
+                <InputText id="secret" @bind-Value="configuration.Binding.Secret" class="form-control" />
             </div>
 
             <div class="form-group">
                 <label for="callback">Callback</label>
-                <InputText id="callback" @bind-Value="@configuration.Binding.CallbackUrl" class="form-control" />
+                <InputText id="callback" @bind-Value="configuration.Binding.CallbackUrl" class="form-control" />
             </div>
 
             <div class="form-group">
                 <label for="accoutn">BIM 360 Account</label>
-                <InputText id="account" @bind-Value="@configuration.Account" class="form-control" />
+                <InputText id="account" @bind-Value="configuration.Account" class="form-control" />
 
             </div>
 
             <div class="form-group">
                 <label for="project">BIM 360 Project</label>
-                <InputText id="project" @bind-Value="@configuration.Project" class="form-control" />
+                <InputText id="project" @bind-Value="configuration.Project" class="form-control" />
+            </div>
+
+            <div class="form-check">
+                <InputCheckbox id="isDefault" @bind-Value="configuration.Binding.IsDefault" />
+                <label for="isDefault" class="form-check-label">Is Default</label>                
             </div>
 
             <button type="submit" class="btn btn-primary">Save</button>
@@ -74,6 +79,11 @@ else
     private async Task HandleValidSave()
     {
         await configManager.SaveEnvironmentConfiguration(configuration.Binding);
+
+        if (configuration.Binding.IsDefault)
+        {
+            await configManager.SetDefaultEnvironment(configuration.Binding.Environment);
+        }
 
         toastService.ShowSuccess($"Saved {configuration.Binding.Environment} configuration.");
 
