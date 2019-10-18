@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace MCAuth.Auth
+namespace MCCommon.Auth
 {
     [JsonObject]
-    internal class TokenUser
+    public class TokenUser
     {
         [JsonProperty(PropertyName = "userid")]
         public string UserId { get; set; }

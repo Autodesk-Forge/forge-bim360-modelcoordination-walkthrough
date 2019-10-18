@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MCAuth.Auth
+namespace MCCommon.Auth
 {
     [JsonObject]
-    internal class Token
+    public class Token
     {
         [JsonProperty("token_type")]
         public string Type { get; set; }

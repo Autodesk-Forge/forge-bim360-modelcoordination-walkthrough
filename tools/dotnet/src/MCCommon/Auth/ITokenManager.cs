@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MCAuth.Auth
+namespace MCCommon.Auth
 {
-    internal interface ITokenManager
+    public interface ITokenManager
     {
+        bool Configured { get; }
+
         Task<Token> GetAccessToken(bool forceRefresh = false);
 
         Task<string> GetAccessTokenString(bool forceRefresh = false);

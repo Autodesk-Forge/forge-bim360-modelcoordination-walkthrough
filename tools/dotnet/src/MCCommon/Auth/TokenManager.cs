@@ -6,17 +6,19 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MCAuth.Auth
+namespace MCCommon.Auth
 {
     [Shared]
     [Export(typeof(ITokenManager))]
     internal sealed class TokenManager : ITokenManager
     {
         private Token _token;
-
+      
         public TokenManager()
         {
         }
+
+        public bool Configured => _token != null;
 
         public async Task<Token> GetAccessToken(bool forceRefresh = false)
         {

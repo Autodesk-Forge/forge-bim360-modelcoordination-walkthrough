@@ -1,0 +1,63 @@
+﻿@page "/configuration"
+
+@using MCCommon
+
+@inject NavigationManager NavigationManager
+@inject IForgeAppConfigurationManager configManager
+
+<h3>Configured Environments</h3>
+
+@if (configurations == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Environment</th>
+                <th>Client ID</th>
+                <th>Default</th>
+                <th />
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var config in configurations)
+            {
+            <tr>
+                <td>@config.Environment</td>
+                <td>@config.ClientId</td>
+                @if (config.IsDefault)
+                {
+                    <td><input type="checkbox" name="isdefault" value="1" checked onclick="return false;"></td>
+                }
+                else
+                {
+                    <td><input type="checkbox" name="isdefault" value="0" onclick="return false;"></td>
+                }
+                <td>
+                    <button class="btn btn-primary" @onclick="@(() => EditConfiguraiton(config))">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    ForgeAppConfiguration[] configurations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        configurations = await configManager.GetCurrentConfiguraitons();
+    }
+
+    private void EditConfiguraiton(ForgeAppConfiguration config)
+    {
+        NavigationManager.NavigateTo($"environment/{config.Environment}");
+    }
+}

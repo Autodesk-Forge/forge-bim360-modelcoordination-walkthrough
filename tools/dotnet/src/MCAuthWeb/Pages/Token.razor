@@ -1,0 +1,76 @@
+﻿@page "/token"
+
+@using MCAuthWeb.Data
+@using MCCommon
+@using MCCommon.Auth
+
+@inject ITokenManager tokenManager
+@inject NavigationManager navigationManager
+@inject IForgeAppConfigurationManager configManager
+@inject IToastService toastService
+
+<h3>Forge Token</h3>
+
+@if (token == null)
+{
+    <p><em>Loading token...</em></p>
+}
+else
+{
+    <div>
+        <div class="form-group">
+            <label for="accessToken">Client Key</label>
+            <textarea id="accessToken" class="form-control z-depth-1" rows="8" readonly>@token.AccessToken</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="expieryu">Expires In (UTC)</label>
+            <textarea id="expieryu" class="form-control z-depth-1" rows="1" readonly>@token.ExpiresOn.ToString("u")</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="expieryl">Expires In (Local)</label>
+            <textarea id="expieryl" class="form-control z-depth-1" rows="1" readonly>@token.ExpiresOn.ToLocalTime().ToString("u")</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="refreshToken">Refresh Token</label>
+            <textarea id="expiery" class="form-control z-depth-1" rows="1" readonly>@token.Refresh</textarea>
+        </div>
+
+        <p>
+            <button class="btn btn-primary" @onclick="@SaveToken">
+                Save
+            </button>
+            <button class="btn btn-primary" @onclick="@RefreshToken">
+                Refresh
+            </button>
+        </p>
+    </div>
+}
+
+@code {
+
+    private MCCommon.Auth.Token token;
+
+    private bool isRefresh;
+
+    protected override async Task OnInitializedAsync()
+    {
+        token = await tokenManager.GetAccessToken();
+    }
+
+    private async Task SaveToken()
+    {
+        await configManager.CacheToken(token.AccessToken);
+
+        toastService.ShowSuccess("Saved token");
+    }
+
+    private async Task RefreshToken()
+    {
+        token = await tokenManager.GetAccessToken(true);
+
+        toastService.ShowInfo("Token refreshed");
+    }
+}

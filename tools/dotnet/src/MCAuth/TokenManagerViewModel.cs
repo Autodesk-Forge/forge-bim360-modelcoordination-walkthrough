@@ -1,5 +1,5 @@
-﻿using MCAuth.Auth;
-using MCCommon;
+﻿using MCCommon;
+using MCCommon.Auth;
 using System;
 using System.Composition;
 using System.Windows;

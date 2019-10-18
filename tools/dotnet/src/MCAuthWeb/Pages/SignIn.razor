@@ -1,0 +1,68 @@
+﻿@page "/signin/oauth/callback"
+@page "/signin"
+
+@using MCAuthWeb.Data
+@using MCCommon
+@using MCCommon.Auth
+
+@inject IForgeAppConfigurationManager configManager
+@inject ITokenManager tokenManager
+@inject NavigationManager navigationManager
+
+<h2>Get Forge Token</h2>
+
+@if (navigationManager.Uri.EndsWith("/signin"))
+{
+<div>
+    <EditForm Model="@environment" OnValidSubmit="@HandleSignIn">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="environment">Select Configuration</label>
+            <InputSelect id="environment" @bind-Value="@environment.Environment" class="form-control">
+                <option value="Production">Production</option>
+                <option value="Staging">Staging (Autodesk only)</option>
+                <option value="Development">Development (Autodesk only)</option>
+            </InputSelect>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Next</button>
+
+    </EditForm>
+</div>
+}
+else if (navigationManager.Uri.Contains("/signin/oauth/callback"))
+{
+    <p><em>Requesting token...</em></p>
+}
+
+@code {
+
+    private ForgeEnvironmentModel environment = new ForgeEnvironmentModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (tokenManager.Configured)
+        {
+            navigationManager.NavigateTo("/token");
+        }
+        else if (navigationManager.Uri.Contains("/signin/oauth/callback"))
+        {
+            var code = new Uri(navigationManager.Uri, UriKind.Absolute).Query.Split('=')[1];
+
+            await tokenManager.Configure(code);
+
+            navigationManager.NavigateTo("/token");
+        }
+    }
+
+    private async Task HandleSignIn()
+    {
+        var env = await configManager.GetEnvironmentConfiguration(environment.Binding);
+
+        ForgeAppConfiguration.Current = env;
+
+        navigationManager.NavigateTo(ForgeAppConfiguration.Current.AuthorizeUrlCode.AbsoluteUri);
+    }
+}
