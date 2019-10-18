@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCAuth", "src\MCAuth\MCAuth
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UXCommon", "src\UXCommon\UXCommon.csproj", "{4BCA46DF-5783-442E-BE08-1D60DD3E3685}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCAuthWeb", "src\MCAuthWeb\MCAuthWeb.csproj", "{EA08CE6E-2511-4538-B2B7-83571C141B75}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{4BCA46DF-5783-442E-BE08-1D60DD3E3685}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BCA46DF-5783-442E-BE08-1D60DD3E3685}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BCA46DF-5783-442E-BE08-1D60DD3E3685}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA08CE6E-2511-4538-B2B7-83571C141B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA08CE6E-2511-4538-B2B7-83571C141B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA08CE6E-2511-4538-B2B7-83571C141B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA08CE6E-2511-4538-B2B7-83571C141B75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
