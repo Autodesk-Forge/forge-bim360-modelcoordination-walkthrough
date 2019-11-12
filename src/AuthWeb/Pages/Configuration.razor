@@ -1,0 +1,100 @@
+﻿@*/////////////////////////////////////////////////////////////////////
+// Copyright (c) Autodesk, Inc. All rights reserved
+//
+// Permission to use, copy, modify, and distribute this software in
+// object code form for any purpose and without fee is hereby granted,
+// provided that the above copyright notice appears in all copies and
+// that both that copyright notice and the limited warranty and
+// restricted rights notice below appear in all supporting
+// documentation.
+//
+// AUTODESK PROVIDES THIS PROGRAM "AS IS" AND WITH ALL FAULTS.
+// AUTODESK SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTY OF
+// MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE.  AUTODESK, INC.
+// DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
+// UNINTERRUPTED OR ERROR FREE.
+/////////////////////////////////////////////////////////////////////*@
+@page "/configuration"
+
+    @using AuthWeb.Data
+    @using Sample.Forge
+
+    @inject ILocalFileManager fileManager
+    @inject NavigationManager navigationManager
+    @inject IToastService toastService
+    @inject SampleConfiguration currentConfiguration
+
+    <h3>Configuration</h3>
+
+    @if (configuration == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div>
+
+            <EditForm Model="@configuration" OnValidSubmit="@HandleValidSave">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="name">Client Key</label>
+                    <InputText id="name" @bind-Value="configuration.Binding.ClientId" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="secret">Secret</label>
+                    <InputText id="secret" @bind-Value="configuration.Binding.Secret" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="callback">Callback</label>
+                    <InputText id="callback" @bind-Value="configuration.Binding.CallbackUrl" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="accoutn">BIM 360 Account</label>
+                    <InputText id="account" @bind-Value="configuration.Account" class="form-control" />
+
+                </div>
+
+                <div class="form-group">
+                    <label for="project">BIM 360 Project</label>
+                    <InputText id="project" @bind-Value="configuration.Project" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+
+            </EditForm>
+
+        </div>
+    }
+
+    @code {
+
+        private ForgeAppModel configuration;
+
+        protected override async Task OnInitializedAsync()
+        {
+            var cached = await fileManager.ReadJsonAsync<SampleConfiguration>();
+
+            currentConfiguration.AccountId = cached.AccountId;
+            currentConfiguration.ProjectId = cached.ProjectId;
+            currentConfiguration.ClientId = cached.ClientId;
+            currentConfiguration.Secret = cached.Secret;
+            currentConfiguration.CallbackUrl = cached.CallbackUrl;
+
+            configuration = new ForgeAppModel
+            {
+                Binding = currentConfiguration
+            };
+        }
+
+        private async Task HandleValidSave()
+        {
+            await fileManager.WriteJsonAsync<SampleConfiguration>(currentConfiguration);
+
+            toastService.ShowSuccess("Saved configuration.");
+        }
+    }

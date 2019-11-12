@@ -329,7 +329,5 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-**/.ionide
-**/dist
-**/.vscode
-**/NuGet.config
+# local configuration
+**/configuration.json
