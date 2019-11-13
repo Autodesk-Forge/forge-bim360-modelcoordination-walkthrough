@@ -46,6 +46,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7. Create and Query Model S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateAndQueryViewsSample", "CreateAndQueryViewsSample\CreateAndQueryViewsSample.csproj", "{32000F96-D9F7-4975-942B-FE6D55A2F23C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8. Classify Clashing Objects", "8. Classify Clashing Objects", "{D0EDD4D4-230B-421C-B59A-96BA7E343F8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassifyClashingObjectsSample", "ClassifyClashingObjectsSample\ClassifyClashingObjectsSample.csproj", "{C06C44EF-7635-4CD3-8D51-122056B6A363}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +96,10 @@ Global
 		{32000F96-D9F7-4975-942B-FE6D55A2F23C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32000F96-D9F7-4975-942B-FE6D55A2F23C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32000F96-D9F7-4975-942B-FE6D55A2F23C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C06C44EF-7635-4CD3-8D51-122056B6A363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C06C44EF-7635-4CD3-8D51-122056B6A363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C06C44EF-7635-4CD3-8D51-122056B6A363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C06C44EF-7635-4CD3-8D51-122056B6A363}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +119,8 @@ Global
 		{23A11932-4303-4BF6-B986-E507518AB453} = {8B9DAAB3-A0A7-4734-B6B7-901C4F117BC8}
 		{F2F9D502-CAC8-4FAD-94BD-0F10579ABA84} = {B224FCF6-81E1-4DD6-8F23-02C21887C251}
 		{32000F96-D9F7-4975-942B-FE6D55A2F23C} = {F2F9D502-CAC8-4FAD-94BD-0F10579ABA84}
+		{D0EDD4D4-230B-421C-B59A-96BA7E343F8D} = {B224FCF6-81E1-4DD6-8F23-02C21887C251}
+		{C06C44EF-7635-4CD3-8D51-122056B6A363} = {D0EDD4D4-230B-421C-B59A-96BA7E343F8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {067353B9-1213-4D50-9630-45ADDDB3DAB2}

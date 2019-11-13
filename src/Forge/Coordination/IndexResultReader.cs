@@ -48,7 +48,7 @@ namespace Sample.Forge.Coordination
             _fields = fields;
         }
 
-        public async Task<QueryResultSummary> ReadToEndAsync(Func<JObject, Task<bool>> rowProcessor = null, bool substituteFieldkeys = true)
+        public async Task<QueryResultSummary> ReadToEndAsync(Func<IndexRow, Task<bool>> rowProcessor = null, bool substituteFieldkeys = true)
         {
             if (substituteFieldkeys && _fields == null)
             {
@@ -117,7 +117,7 @@ namespace Sample.Forge.Coordination
 
                         if (rowProcessor != null)
                         {
-                            if (!(await rowProcessor(obj)))
+                            if (!(await rowProcessor(new IndexRow(obj))))
                             {
                                 break;
                             }
@@ -131,7 +131,6 @@ namespace Sample.Forge.Coordination
                 {
                     inputStream.Close();
                     inputStream.Dispose();
-                    inputStream = null;
                 }
             }
 
