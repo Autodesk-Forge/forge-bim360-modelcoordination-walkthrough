@@ -47,5 +47,33 @@ namespace Sample.Forge.Coordination
 
             return await client.GetModelSetAsync(containerId, status.ModelSetId);
         }
+
+        public static async Task<ModelSetView> CreateModelSetView(this IModelSetClient client, Guid containerId, Guid modelSetId, NewModelSetView view)
+        {
+            var status = await client.CreateModelSetViewAsync(containerId, modelSetId, view).CompleteJob(
+                job => client.GetModelSetViewJobAsync(containerId, modelSetId, job.ViewId, job.JobId),
+                job => job.Status == ModelSetViewJobStatus.Running);
+
+            if (status.Status != ModelSetViewJobStatus.Succeeded)
+            {
+                throw new InvalidOperationException(JsonConvert.SerializeObject(status));
+            }
+
+            return await client.GetModelSetViewAsync(containerId, modelSetId, status.ViewId);
+        }
+
+        public static async Task<ModelSetView> UpdateModelSetView(this IModelSetClient client, Guid containerId, Guid modelSetId, Guid viewId, UpdateModelSetView updatedView)
+        {
+            var status = await client.UpdateModelSetViewAsync(containerId, modelSetId, viewId, updatedView).CompleteJob(
+                job => client.GetModelSetViewJobAsync(containerId, modelSetId, viewId, job.JobId),
+                job => job.Status == ModelSetViewJobStatus.Running);
+
+            if (status.Status != ModelSetViewJobStatus.Succeeded)
+            {
+                throw new InvalidOperationException(JsonConvert.SerializeObject(status));
+            }
+
+            return await client.GetModelSetViewAsync(containerId, modelSetId, viewId);
+        }
     }
 }

@@ -40,7 +40,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. Query Model Set Verison 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryModelSetVersionIndexSample", "QueryModelSetVersionIndexSample\QueryModelSetVersionIndexSample.csproj", "{23A11932-4303-4BF6-B986-E507518AB453}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCConfig", "MCConfig\MCConfig.csproj", "{7747739F-BD4F-4D4C-82CB-054D0FC547DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCConfig", "MCConfig\MCConfig.csproj", "{7747739F-BD4F-4D4C-82CB-054D0FC547DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7. Create and Query Model Set Views", "7. Create and Query Model Set Views", "{F2F9D502-CAC8-4FAD-94BD-0F10579ABA84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateAndQueryViewsSample", "CreateAndQueryViewsSample\CreateAndQueryViewsSample.csproj", "{32000F96-D9F7-4975-942B-FE6D55A2F23C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +88,10 @@ Global
 		{7747739F-BD4F-4D4C-82CB-054D0FC547DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7747739F-BD4F-4D4C-82CB-054D0FC547DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7747739F-BD4F-4D4C-82CB-054D0FC547DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32000F96-D9F7-4975-942B-FE6D55A2F23C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32000F96-D9F7-4975-942B-FE6D55A2F23C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32000F96-D9F7-4975-942B-FE6D55A2F23C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32000F96-D9F7-4975-942B-FE6D55A2F23C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +109,8 @@ Global
 		{B13F5898-7F05-439F-B4EF-44FA44E8521F} = {E0AEB022-E9D7-4B28-8077-AFD4F63D5926}
 		{8B9DAAB3-A0A7-4734-B6B7-901C4F117BC8} = {B224FCF6-81E1-4DD6-8F23-02C21887C251}
 		{23A11932-4303-4BF6-B986-E507518AB453} = {8B9DAAB3-A0A7-4734-B6B7-901C4F117BC8}
+		{F2F9D502-CAC8-4FAD-94BD-0F10579ABA84} = {B224FCF6-81E1-4DD6-8F23-02C21887C251}
+		{32000F96-D9F7-4975-942B-FE6D55A2F23C} = {F2F9D502-CAC8-4FAD-94BD-0F10579ABA84}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {067353B9-1213-4D50-9630-45ADDDB3DAB2}
