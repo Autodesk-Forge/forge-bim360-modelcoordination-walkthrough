@@ -85,7 +85,7 @@ namespace GetModelSetAndVersionsSample
             {
                 foreach (var version in modelSetVersions.ModelSetVersions.OrderBy(v => v.Version))
                 {
-                    ColourConsole.WriteSuccess($"Found model set version {version.Version:00} : {version.CreateTime.ToString("u")}, {version.Status}");
+                    ColourConsole.WriteSuccess($"Found model set version {version.Version:00} : {version.CreateTime:u}, {version.Status}");
                 }
             }
             else
@@ -100,7 +100,7 @@ namespace GetModelSetAndVersionsSample
 
                 var version = await modelSetClient.GetModelSetVersionAsync(modelSetCreateSampleState.ModelSet.ContainerId, modelSetCreateSampleState.ModelSet.ModelSetId, 1);
 
-                ColourConsole.WriteSuccess($"First model set version {version.Version:00} : {version.CreateTime.ToString("u")}, {version.Status}");
+                ColourConsole.WriteSuccess($"First model set version {version.Version:00} : {version.CreateTime:u)}, {version.Status}");
             }
 
             if (modelSetVersions?.ModelSetVersions.Count > 0)
@@ -109,7 +109,7 @@ namespace GetModelSetAndVersionsSample
 
                 var latest = await modelSetClient.GetModelSetVersionLatestAsync(modelSetCreateSampleState.ModelSet.ContainerId, modelSetCreateSampleState.ModelSet.ModelSetId);
 
-                ColourConsole.WriteSuccess($"Latest model set version {latest.Version:00} : {latest.CreateTime.ToString("u")}, {latest.Status}");
+                ColourConsole.WriteSuccess($"Latest model set version {latest.Version:00} : {latest.CreateTime:u}, {latest.Status}");
             }
         }
     }

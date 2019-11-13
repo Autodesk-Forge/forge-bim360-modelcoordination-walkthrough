@@ -32,6 +32,7 @@
 |[Clash Results](src/GetClashResultsSample/Program.cs)|Working with clash test result resources|
 |[Assigned and Closed Clash](src/AssignedAndClosedClashGroupSample/Program.cs)|Querying assigned/closed clash groups and issue details|
 |[Model Set Indexes](src/QueryModelSetVersionIndexSample/Program.cs)|BIM breakdown querying against a model set version|
+|[Model Set Views](src/CreateAndQueryViewsSample/Program.cs)|Create and query mode set custom views|
 
 ## Building
 

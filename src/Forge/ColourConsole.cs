@@ -45,6 +45,23 @@ namespace Sample.Forge
 
             try
             {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("Info   ");
+            }
+            finally
+            {
+                Console.ForegroundColor = current;
+            }
+
+            Console.WriteLine($" - {message}");
+        }
+
+        public static void WriteWarning(string message)
+        {
+            var current = Console.ForegroundColor;
+
+            try
+            {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("Info   ");
             }
