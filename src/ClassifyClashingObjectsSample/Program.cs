@@ -165,11 +165,9 @@ namespace ClassifyClashingObjectsSample
                 foreach (var clashInstance in clashGroupDetail.ClashData.ClashInstances)
                 {
                     var leftDocumentKey = documentIndexIdMap[clashGroupDetail.ClashData.Documents.Single(d => d.Id == clashInstance.Ldid).Urn];
-
                     var leftObject = rows.SingleOrDefault(r => r.Id == clashInstance.Lvid && r.DocumentIds.Contains(leftDocumentKey));
 
                     var rightDocumentKey = documentIndexIdMap[clashGroupDetail.ClashData.Documents.Single(d => d.Id == clashInstance.Rdid).Urn];
-
                     var rightObject = rows.SingleOrDefault(r => r.Id == clashInstance.Rvid && r.DocumentIds.Contains(rightDocumentKey));
 
                     ColourConsole.WriteSuccess($"{leftObject.Row.ToString()}\r\nclashes with\r\n{rightObject.Row.ToString()}");
