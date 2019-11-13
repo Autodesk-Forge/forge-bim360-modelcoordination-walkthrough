@@ -31,8 +31,9 @@
 |[Model Set Versions](src/GetModelSetAndVersionsSample/Program.cs)|Querying model set versions via version number and tip|
 |[Clash Results](src/GetClashResultsSample/Program.cs)|Working with clash test result resources|
 |[Assigned and Closed Clash](src/AssignedAndClosedClashGroupSample/Program.cs)|Querying assigned/closed clash groups and issue details|
-|[Model Set Indexes](src/QueryModelSetVersionIndexSample/Program.cs)|BIM breakdown querying against a model set version|
+|[Model Set Indexes](src/QueryModelSetVersionIndexSample/Program.cs)|BIM property querying against a model set version index|
 |[Model Set Views](src/CreateAndQueryViewsSample/Program.cs)|Create and query mode set custom views|
+|[Classify Clashing Objects](src/ClassifyClashingObjectsSample/Program.cs)|Use BIM property index to classify clashing objects|
 
 ## Building
 
