@@ -20,16 +20,18 @@ namespace Sample.Forge.Coordination
 {
     public class IndexRow
     {
-        public IndexRow(JObject rowObject) => Row = rowObject;
+        public IndexRow(JObject rowObject) => Data = rowObject;
 
-        public JObject Row { get; }
+        public JObject Data { get; }
 
-        public string FileId => (string)Row["file"];
+        public string FileId => (string)Data["file"];
 
-        public string DatabaseId => (string)Row["db"];
+        public string DatabaseId => (string)Data["db"];
 
-        public string[] DocumentIds => Row["docs"].ToObject<string[]>();
+        public string[] DocumentIds => Data["docs"].ToObject<string[]>();
 
-        public int Id => (int)Row["id"];
+        public int Id => (int)Data["id"];
+
+        public string Checksum => (string)Data["checksum"];
     }
 }

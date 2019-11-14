@@ -24,6 +24,7 @@ using Sample.Forge.Issue;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ClassifyClashingObjectsSample
@@ -69,6 +70,16 @@ namespace ClassifyClashingObjectsSample
             var clashResultSampleState = await fileManager.ReadJsonAsync<GetClashResultsSampleState>()
                 ?? throw new InvalidOperationException("Could not load GetClashResultsSampleState.json, have you run GetClashResultsSample?");
 
+            // get the model set versoin associated with the clash test
+            var modelSetClient = serviceProvider.GetRequiredService<IModelSetClient>();
+
+            var modelSetVersion = await modelSetClient.GetModelSetVersionAsync(
+                clashResultSampleState.Container,
+                clashResultSampleState.Latest.ModelSetId,
+                clashResultSampleState.Latest.ModelSetVersion);
+
+            ColourConsole.WriteSuccess($"Loaded model set version {clashResultSampleState.Latest.ModelSetId}:{clashResultSampleState.Latest.ModelSetVersion}");
+
             // Get the first page of assigned clash groups AKA coordination issues.
             var clashClient = serviceProvider.GetRequiredService<IClashClient>();
 
@@ -78,6 +89,8 @@ namespace ClassifyClashingObjectsSample
                 null, 
                 null);
 
+            ColourConsole.WriteSuccess($"Loaded page 1 of asigned clash issues with test context {clashResultSampleState.Latest.Id}");
+
             // Get the details of the clash groups returned
             var assignedClashGroupDetails = await clashClient.GetAssignedClashGroupBatchAsync(
                 clashResultSampleState.Container,
@@ -85,11 +98,7 @@ namespace ClassifyClashingObjectsSample
                 false,
                 assignedClashGroups.Groups.Select(cg => cg.Id));
 
-            // get a list of the distince documents for all the assigned clash groups in the page
-            var documentUrns = assignedClashGroupDetails
-                .SelectMany(cg => cg.ClashData.Documents.Select(d => d.Urn))
-                .Distinct()
-                .ToArray();
+            ColourConsole.WriteSuccess($"Loaded {assignedClashGroups.Groups.Count} clash groups");
 
             // get the index manifest and map the document URNs from the clash data to index seed file document keys
             var modelSetIndex = serviceProvider.GetRequiredService<IModelSetIndex>();
@@ -100,79 +109,96 @@ namespace ClassifyClashingObjectsSample
                 clashResultSampleState.Latest.ModelSetVersion)
                 ?? throw new InvalidOperationException($"No indfex manifest found for {clashResultSampleState.Latest.ModelSetVersion}:{clashResultSampleState.Latest.ModelSetVersion}");
 
-            var documentIndexIdMap = documentUrns.ToDictionary(
-                doc => doc,
-                doc => indexManifest.SeedFiles.SelectMany(sf => sf.Documents).Single(d => d.VersionUrn.Equals(doc, StringComparison.OrdinalIgnoreCase)).Id, 
+            ColourConsole.WriteSuccess($"Loaded index manifest {clashResultSampleState.Latest.ModelSetId}:{clashResultSampleState.Latest.ModelSetVersion}");
+
+            // map of document version URN -> document index key
+            var documentObjectIndexIdMap = modelSetVersion.DocumentVersions.ToDictionary(
+                doc => doc.VersionUrn,
+                doc => new IndexDocumentObjects
+                {
+                    SeedFileVersionUrn = doc.OriginalSeedFileVersionUrn,
+                    DocumentVersionUrn = doc.VersionUrn,
+                    IndexFileKey = indexManifest.SeedFiles.Single(sf => sf.Urn.Equals(doc.OriginalSeedFileVersionUrn, StringComparison.OrdinalIgnoreCase)).Id,
+                    IndexDocumentKey = indexManifest.SeedFiles.SelectMany(sf => sf.Documents).Single(d => d.VersionUrn.Equals(doc.VersionUrn, StringComparison.OrdinalIgnoreCase)).Id
+                },
                 StringComparer.OrdinalIgnoreCase);
 
-            foreach (var kvp in documentIndexIdMap)
+            foreach (var kvp in documentObjectIndexIdMap)
             {
-                ColourConsole.WriteInfo($"{kvp.Key} -> {kvp.Value}");
+                ColourConsole.WriteInfo($"File {kvp.Value.IndexFileKey} contains document {kvp.Value.IndexDocumentKey}");
             }
             
-            // Grab all of the objects we are potentally intrested in by getting the 
-            // left and right LMV object IDs from the individual clashes.
-            List<int> candidateObjectIds = new List<int>();
-
+            // Grab all of the objects we are intrested in by getting the left and right LMV object IDs from the individual clashes.
             foreach (var clashGroupDetail in assignedClashGroupDetails)
             {
+                var documentIdMap = clashGroupDetail.ClashData.Documents.ToDictionary(d => d.Id, d => d.Urn);
+
                 foreach (var clashInstance in clashGroupDetail.ClashData.ClashInstances)
                 {
-                    if (!candidateObjectIds.Contains(clashInstance.Lvid))
-                    {
-                        candidateObjectIds.Add(clashInstance.Lvid);
-                    }
-
-                    if (!candidateObjectIds.Contains(clashInstance.Rvid))
-                    {
-                        candidateObjectIds.Add(clashInstance.Rvid);
-                    }
+                    documentObjectIndexIdMap[documentIdMap[clashInstance.Ldid]].AddObjectId(clashInstance.Lvid);
+                    documentObjectIndexIdMap[documentIdMap[clashInstance.Rdid]].AddObjectId(clashInstance.Rvid);
                 }
             }
 
-            ColourConsole.WriteInfo($"Object IDs: {string.Join(',', candidateObjectIds)}");
-
-            // this will potentially get more data than we want, we will have to remove objects which are not
-            // in the documents associated with the clash. ie. the IDs in candidateObjectIds could also
-            // be in documents which are not participating in the clash intersection. Watch the in clause
-            //for overflowing, this will need to be chunked for large data sets
-            string query = "select * from s3object s where s.id in (" + string.Join(',', candidateObjectIds) + ") and count(s.docs) > 0";
-
-            ColourConsole.WriteInfo(query);
-
-            var queryResults = await modelSetIndex.Query(
-                clashResultSampleState.Container,
-                clashResultSampleState.Latest.ModelSetId,
-                clashResultSampleState.Latest.ModelSetVersion, query);
-
-            ColourConsole.WriteSuccess($"Query results downloaded to {queryResults.FullName}");
-
-            // itterate over the results and count the number of rows returned
-            // substituteFieldkeys == true below will pull out the unique set of
-            // fields in this data
-            var reader = new IndexResultReader(queryResults, null);
-
             var rows = new List<IndexRow>();
 
-            var summary = await reader.ReadToEndAsync(obj =>
+            foreach (var kvp in documentObjectIndexIdMap)
             {
-                rows.Add(obj);
-                return Task.FromResult(true);
-            }, false);
+                if (kvp.Value.Objects.Count == 0)
+                {
+                    continue;
+                }
+
+                ColourConsole.WriteInfo($"Query file key {kvp.Value.IndexFileKey}, objects {string.Join(',', kvp.Value.Objects)}");
+
+                // get the objects in this seed file using WHERE IN - watch out for ovweflow
+                // this might need to be chunked into multiple queries if you have lots of objects...
+                string query = $"select * from s3object s where s.file = '{kvp.Value.IndexFileKey}' and s.id in (" + string.Join(',', kvp.Value.Objects) + ")";
+
+                ColourConsole.WriteInfo(query);
+
+                var queryResults = await modelSetIndex.Query(
+                    clashResultSampleState.Container,
+                    clashResultSampleState.Latest.ModelSetId,
+                    clashResultSampleState.Latest.ModelSetVersion, query);
+
+                ColourConsole.WriteSuccess($"Query results downloaded to {queryResults.FullName}");
+
+                // itterate over the results and pull out the rows
+                var reader = new IndexResultReader(queryResults, null);
+
+                var summary = await reader.ReadToEndAsync(obj =>
+                {
+                    rows.Add(obj);
+                    return Task.FromResult(true);
+                }, false);
+            }
+
+            // get the issue container for this project
+            var dataClient = serviceProvider.GetRequiredService<IForgeDataClient>();
+
+            dynamic obj = await dataClient.GetProjectAsJObject()
+                ?? throw new InvalidOperationException($"Could not load prject {configuration.ProjectId}");
+
+            Guid issueContainer = obj.data.relationships.issues.data.id;
+
+            var issueClient = serviceProvider.GetRequiredService<IForgeIssueClient>();
 
             foreach (var clashGroupDetail in assignedClashGroupDetails)
             {
+                dynamic issue = await issueClient.GetIssue(issueContainer, clashGroupDetail.IssueId);
+
+                ColourConsole.WriteSuccess($"Issue : {issue.data.attributes.title}");
+
                 foreach (var clashInstance in clashGroupDetail.ClashData.ClashInstances)
                 {
-                    var leftDocumentKey = documentIndexIdMap[clashGroupDetail.ClashData.Documents.Single(d => d.Id == clashInstance.Ldid).Urn];
+                    var leftDocument = documentObjectIndexIdMap[clashGroupDetail.ClashData.Documents.Single(d => d.Id == clashInstance.Ldid).Urn];
+                    var leftObject = rows.SingleOrDefault(r => r.Id == clashInstance.Lvid && r.DocumentIds.Contains(leftDocument.IndexDocumentKey));
 
-                    var leftObject = rows.SingleOrDefault(r => r.Id == clashInstance.Lvid && r.DocumentIds.Contains(leftDocumentKey));
+                    var rightDocument = documentObjectIndexIdMap[clashGroupDetail.ClashData.Documents.Single(d => d.Id == clashInstance.Rdid).Urn];
+                    var rightObject = rows.SingleOrDefault(r => r.Id == clashInstance.Rvid && r.DocumentIds.Contains(rightDocument.IndexDocumentKey));
 
-                    var rightDocumentKey = documentIndexIdMap[clashGroupDetail.ClashData.Documents.Single(d => d.Id == clashInstance.Rdid).Urn];
-
-                    var rightObject = rows.SingleOrDefault(r => r.Id == clashInstance.Rvid && r.DocumentIds.Contains(rightDocumentKey));
-
-                    ColourConsole.WriteSuccess($"{leftObject.Row.ToString()}\r\nclashes with\r\n{rightObject.Row.ToString()}");
+                    ColourConsole.WriteInfo($"  {(string)leftObject.Data["p153cb174"]} clashes with {(string)rightObject.Data["p153cb174"]}");
                 }
             }
         }
