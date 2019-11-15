@@ -2,38 +2,38 @@
 
 ## Disclaimer
 
-```csharp
-/////////////////////////////////////////////////////////////////////
-// Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
-//
-// Permission to use, copy, modify, and distribute this software in
-// object code form for any purpose and without fee is hereby granted,
-// provided that the above copyright notice appears in all copies and
-// that both that copyright notice and the limited warranty and
-// restricted rights notice below appear in all supporting
-// documentation.
-//
-// AUTODESK PROVIDES THIS PROGRAM "AS IS" AND WITH ALL FAULTS.
-// AUTODESK SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTY OF
-// MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE.  AUTODESK, INC.
-// DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
-// UNINTERRUPTED OR ERROR FREE.
-/////////////////////////////////////////////////////////////////////
+```
+Copyright (c) Autodesk, Inc. All rights reserved
+Written by Forge Partner Development
+
+Permission to use, copy, modify, and distribute this software in
+object code form for any purpose and without fee is hereby granted,
+provided that the above copyright notice appears in all copies and
+that both that copyright notice and the limited warranty and
+restricted rights notice below appear in all supporting
+documentation.
+
+AUTODESK PROVIDES THIS PROGRAM "AS IS" AND WITH ALL FAULTS.
+AUTODESK SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTY OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE.  AUTODESK, INC.
+DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
+UNINTERRUPTED OR ERROR FREE.
 ```
 
 ## Available Samples
 
-| Sample | Demonstrates |
-| --- | --- |
-|[Environment Check](src/TestEnvironmentSetup/Program.cs)|A sanity check of the current developer environment|
-|[Create Model Set]( src/CreateModelSetSample/Program.cs)|Creating a model set from first principals|
-|[Model Set Versions](src/GetModelSetAndVersionsSample/Program.cs)|Querying model set versions via version number and tip|
-|[Clash Results](src/GetClashResultsSample/Program.cs)|Working with clash test result resources|
-|[Assigned and Closed Clash](src/AssignedAndClosedClashGroupSample/Program.cs)|Querying assigned/closed clash groups and issue details|
-|[Model Set Indexes](src/QueryModelSetVersionIndexSample/Program.cs)|BIM property querying against a model set version index|
-|[Model Set Views](src/CreateAndQueryViewsSample/Program.cs)|Create and query mode set custom views|
-|[Classify Clashing Objects](src/ClassifyClashingObjectsSample/Program.cs)|Use BIM property index to classify clashing objects|
+| Order | Sample | Demonstrates |
+| --- | --- | --- |
+|1|[Environment Check](src/TestEnvironmentSetup/Program.cs)|A sanity check of the current developer environment|
+|2|[Create Model Set]( src/CreateModelSetSample/Program.cs)|Creating a model set from first principals|
+|3|[Model Set Versions](src/GetModelSetAndVersionsSample/Program.cs)|Querying model set versions via version number and tip|
+|4|[Clash Results](src/GetClashResultsSample/Program.cs)|Working with clash test result resources|
+|5|[Assigned and Closed Clash](src/AssignedAndClosedClashGroupSample/Program.cs)|Querying assigned/closed clash groups and issue details|
+|6|[Model Set Indexes](src/QueryModelSetVersionIndexSample/Program.cs)|BIM property querying against a model set version index|
+|7|[Model Set Views](src/CreateAndQueryViewsSample/Program.cs)|Create and query mode set custom views|
+|8|[Classify Clashing Objects](src/ClassifyClashingObjectsSample/Program.cs)|Use BIM property index to classify clashing objects|
+
+The samples in this repo build on one another. The execution order above matters. If you have not used the sample which creates a model set then you will not be able to use the remaining samples without first tweaking the model set input variables.
 
 ## Building
 
