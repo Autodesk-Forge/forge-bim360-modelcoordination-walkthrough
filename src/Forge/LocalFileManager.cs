@@ -67,7 +67,11 @@ namespace Sample.Forge
 
             if (path.Exists)
             {
-                config = JsonConvert.DeserializeObject<T>(await File.ReadAllTextAsync(path.FullName, Encoding.UTF8));
+                using (var fin = path.OpenRead())
+                using (var sr = new StreamReader(fin, Encoding.UTF8))
+                {
+                    config = JsonConvert.DeserializeObject<T>(await sr.ReadToEndAsync());
+                }
             }
             else
             {
@@ -91,7 +95,11 @@ namespace Sample.Forge
         {
             var path = GetJsonPath<T>();
 
-            await File.WriteAllTextAsync(path.FullName, JsonConvert.SerializeObject(jsonObject, Formatting.Indented), Encoding.UTF8);
+            using (var fout = path.OpenWrite())
+            using (var sw = new StreamWriter(fout, Encoding.UTF8))
+            {
+                await sw.WriteAsync(JsonConvert.SerializeObject(jsonObject, Formatting.Indented));
+            }
 
             path.Refresh();
 

@@ -51,13 +51,13 @@ namespace Sample.Forge
 
             serviceCollection.AddTransient<SampleConfigurationDelegatingHandler>();
 
-            serviceCollection.AddHttpClient<IIndexClient, IndexClient>(options => options.BaseAddress = configuration.ModelSetIndexApiBasePath)
+            serviceCollection.AddHttpClient<IIndexClient, IndexClient>((provider, options) => options.BaseAddress = provider.GetRequiredService<SampleConfiguration>().ModelSetIndexApiBasePath)
                 .AddSampleConfigurationDelegatingHandler();
 
-            serviceCollection.AddHttpClient<IModelSetClient, ModelSetClient>(options => options.BaseAddress = configuration.ModelSetApiBasePath)
+            serviceCollection.AddHttpClient<IModelSetClient, ModelSetClient>((provider, options) => options.BaseAddress = provider.GetRequiredService<SampleConfiguration>().ModelSetApiBasePath)
                 .AddSampleConfigurationDelegatingHandler();
 
-            serviceCollection.AddHttpClient<IClashClient, ClashClient>(options => options.BaseAddress = configuration.ModelSetClashApiBasePath)
+            serviceCollection.AddHttpClient<IClashClient, ClashClient>((provider, options) => options.BaseAddress = provider.GetRequiredService<SampleConfiguration>().ModelSetClashApiBasePath)
                 .AddSampleConfigurationDelegatingHandler();
 
             serviceCollection.AddSingleton<ITokenManager, TokenManager>();
