@@ -49,7 +49,7 @@ namespace Forge.Automation
             Mandatory = false,
             Position = 3,
             ValueFromPipelineByPropertyName = true)]
-        public string CallbackUrl { get; set; }
+        public Uri CallbackUrl { get; set; }
 
         [Parameter(
            Mandatory = false,
@@ -74,7 +74,7 @@ namespace Forge.Automation
             Configuration.AuthToken = !string.IsNullOrWhiteSpace(AuthToken) ? AuthToken : Configuration.AuthToken;
             Configuration.ClientId = !string.IsNullOrWhiteSpace(ClientId) ? ClientId : Configuration.ClientId;
             Configuration.Secret = !string.IsNullOrWhiteSpace(Secret) ? Secret : Configuration.Secret;
-            Configuration.CallbackUrl = !string.IsNullOrWhiteSpace(CallbackUrl) ? CallbackUrl : Configuration.CallbackUrl;
+            Configuration.CallbackUrl = CallbackUrl != null ? CallbackUrl.AbsoluteUri : Configuration.CallbackUrl;
             Configuration.AccountId = AccountId != Guid.Empty ? AccountId : Configuration.AccountId;
             Configuration.ProjectId = ProjectId != Guid.Empty ? ProjectId : Configuration.ProjectId;
 

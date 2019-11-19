@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Forge.Automation
 {
@@ -34,8 +35,15 @@ namespace Forge.Automation
             return provider;
         });
 
-        protected IServiceProvider ServiceProvider => _serviceProvider.Value;
+        internal static IServiceProvider ServiceProvider => _serviceProvider.Value;
 
-        protected SampleConfiguration Configuration => ServiceProvider.GetRequiredService<SampleConfiguration>();
+        internal SampleConfiguration Configuration => ServiceProvider.GetRequiredService<SampleConfiguration>();
+
+        internal void WriteObjectAsync<T>(Task<T> task)
+        {
+            task.Wait();
+
+            WriteObject(task.Result);
+        }
     }
 }
