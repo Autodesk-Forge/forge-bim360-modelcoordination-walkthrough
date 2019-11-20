@@ -1,5 +1,5 @@
 ﻿# set the environment up
-. ([System.IO.Path]::Combine($PSScriptRoot, 'build-and-import-module.ps1'));
+#. ([System.IO.Path]::Combine($PSScriptRoot, 'build-and-import-module.ps1'));
 
 $container = 'f83cef12-deef-4771-9feb-4f85643e3c46';
 $modelset = 'b412a75f-bcfa-4566-a8ef-edb974709817';
@@ -14,20 +14,30 @@ $fields = Search-ModelSetIndexFields -Container $container `
                                      -SearchText $searchText;
 
 # display our search results as CSV - there should only be 1 ;-)
-$fields | ConvertTo-Csv;
+#$fields | ConvertTo-Csv;
+
+$allFields = Get-ModelSetIndexFields -Container $container `
+                                     -ModelSet $modelset `
+                                     -Version $verison;
 
 # run a query
-$query = 'select * from s3object s where count(s.docs) > 0 limit 100';
+#$query = "select * from s3object s where s.p6637df3c = 'Concrete - Cast-in-Place Concrete - Footing'";
+$query = "select sum(s.p2707f0a3 * s.p2b0fd73f * s.p15f8f5ec) + sum(3.14 * ((s.p8fcbb8f7 / 2)*(s.p8fcbb8f7 / 2)) * s.pca1638c2) as volume from s3object s"
+
+"Run $query";
 
 $resultPath = New-ModelSetIndexQuery -Container $container `
                                      -ModelSet $modelset `
                                      -Version $verison `
                                      -Query $query;
 
-$resultpath.FullName;
-
 # stream the results into memory as IndexRow objects
 # and print the name field
 $rows = Get-IndexRows -Path $resultPath;
 
-$rows | %{ [string]($_.Data[$fields[0].Key]) };
+$objects = $rows | %{ $_.Data.ToString() } | ConvertFrom-Json;
+
+$objects;
+
+
+#$rows | %{ [string]($_.Data[$fields[0].Key]) };

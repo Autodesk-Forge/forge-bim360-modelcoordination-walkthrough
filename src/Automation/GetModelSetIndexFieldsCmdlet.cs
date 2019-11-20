@@ -18,53 +18,36 @@ using Microsoft.Extensions.DependencyInjection;
 using Sample.Forge;
 using Sample.Forge.Coordination;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Management.Automation;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Forge.Automation
 {
-    [Cmdlet(VerbsCommon.Get, "IndexRows")]
-    [OutputType(typeof(IndexRow))]
-    public class GetIndexRowsCmdlet : ForgeCmdlet
+    [Cmdlet(VerbsCommon.Get, "ModelSetIndexFields")]
+    [OutputType(typeof(IndexField))]
+    public class GetModelSetIndexFieldsCmdlet : ModelSetVersionCmdlet
     {
         [Parameter(
-            Mandatory = true,
-            Position = 0,
-            ValueFromPipelineByPropertyName = true)]
-        public FileInfo Path { get; set; }
-
-        [Parameter(
             Mandatory = false,
-            Position = 1,
+            Position = 3,
             ValueFromPipelineByPropertyName = true)]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Powershell dynamic binding")]
-        public IndexField[] Fields { get; set; }
+        public string SearchText { get; set; }
 
         protected override void ProcessRecord()
         {
-            IReadOnlyDictionary<string, IndexField> fields = Fields != null ? new ReadOnlyDictionary<string, IndexField>(Fields.ToDictionary(f => f.Key, StringComparer.OrdinalIgnoreCase)) : null;
+            var indexClient = ServiceProvider.GetRequiredService<IModelSetIndex>();
 
-            var reader = new IndexResultReader(Path, fields);
-
-            var rows = new List<IndexRow>();
-
-            var task = reader.ReadToEndAsync(
-                row =>
-                {
-                    rows.Add(row);
-
-                    return Task.FromResult(true);
-                }, 
-                fields != null);
+            var task = indexClient.GetFields(Container, ModelSet, Version);
 
             task.Wait();
 
-            rows.ForEach(r => WriteObject(r));
+            foreach (var field in task.Result)
+            {
+                WriteObject(field.Value);
+            }
         }
     }
 }
+
