@@ -1,24 +1,32 @@
-# BIM 360 Model Coordination API .NET Core Samples
+# BIM 360 Model Coordination API .NET Core Tutorial
 
-## Disclaimer
 
-```
-Copyright (c) Autodesk, Inc. All rights reserved
-Written by Forge Partner Development
+![.NET Core 3.0](https://img.shields.io/badge/.NET%20Core-3.0-blue.svg) 
+![.NET Core 3.1 Preview 2](https://img.shields.io/badge/.NET%20Core-3.1-Preview-2-blue.svg) 
 
-Permission to use, copy, modify, and distribute this software in
-object code form for any purpose and without fee is hereby granted,
-provided that the above copyright notice appears in all copies and
-that both that copyright notice and the limited warranty and
-restricted rights notice below appear in all supporting
-documentation.
+[![visual code](https://img.shields.io/badge/visual%20code-1.28.2-orange.svg)](https://code.visualstudio.com)
 
-AUTODESK PROVIDES THIS PROGRAM "AS IS" AND WITH ALL FAULTS.
-AUTODESK SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTY OF
-MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE.  AUTODESK, INC.
-DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
-UNINTERRUPTED OR ERROR FREE.
-```
+[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/en/docs/oauth/v2/overview/)
+[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](https://forge.autodesk.com/en/docs/data/v2/developers_guide/overview/)
+[![Viewer](https://img.shields.io/badge/Viewer-v7-green.svg)](https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/overview/)
+[![BIM-360](https://img.shields.io/badge/BIM%20360-v1-green.svg)](https://forge.autodesk.com/en/docs/bim360/v1/overview/introduction/) 
+
+[![ModelSetAPI](https://img.shields.io/badge/ModelSetAPI-3.0.65-orange)](https://www.npmjs.com/package/forge-bim360-modelcoordination-modelset)
+[![ClashAPI](https://img.shields.io/badge/ClashAPI-3.3.27-yellowgreen)](https://www.npmjs.com/package/forge-bim360-modelcoordination-clash)
+[![IndexAPI](https://img.shields.io/badge/IndexAPI-1.2.44-green)](https://www.npmjs.com/package/forge-bim360-modelcoordination-index)
+
+[![License](http://img.shields.io/:license-mit-red.svg)](http://opensource.org/licenses/MIT)
+[![Level](https://img.shields.io/badge/Level-Intermediate-blue.svg)](http://developer.autodesk.com/)
+
+## Description
+
+This repository demonstrates basic scenarios of Model Coordnation API in .NET Core, including modelsets, clash, property index and clash issue etc.
+ 
+
+## Thumbnail
+
+  <p align="center"><img src="./help/main.png" width="1000"></p>  
+ 
 
 ## Available Samples
 
@@ -33,15 +41,17 @@ UNINTERRUPTED OR ERROR FREE.
 |7|[Model Set Views](src/CreateAndQueryViewsSample/Program.cs)|Create and query mode set custom views|
 |8|[Classify Clashing Objects](src/ClassifyClashingObjectsSample/Program.cs)|Use BIM property index to classify clashing objects|
 
-The samples in this repo build on one another. The execution order above matters. If you have not used the sample which creates a model set then you will not be able to use the remaining samples without first tweaking the model set input variables.
+The samples in this repo build on one another. The execution order above matters. If you have not used the sample which creates a model set then you will not be able to use the remaining samples without first tweaking the model set input variables. To play with previous modelsets, please note:
 
-## Building
+```diff
+-     Note: The logic of this sample works for ModelSet which are created after Oct 1st,2019
+```
 
-The samples in this repo consist of a suite of .NET Core Console applications and a web application. To build and run these applications you will require the cross-platform .NET Core SDK. These samples also ship with a Microsoft Visual Studio solution; however Visual Studio is not a prerequisite for running this sample code.
+## Setup
 
 ### Prerequisites
 
-The console applications currently target `netcoreapp3.0` and have a single `netstandard2.1` dependency. If you would like to try the AuthWeb ASP.NET Core Blazor web application for configuring the samples and obtaining a Forge token the you will need to install the latest .NET Core 3.1 SDK (currently preview 2.0). .NET Core 3.1 is likely to be the next LTS release from Microsoft (see the following [blog post]( https://devblogs.microsoft.com/dotnet/announcing-net-core-3-1-preview-2/))
+1. **.NET Core**: The console applications currently target `netcoreapp3.0` and have a single `netstandard2.1` dependency. If you would like to try the [AuthWeb ASP.NET Core Blazor web application](src/AuthWeb) for configuring the samples and obtaining a Forge token the you will need to install the latest .NET Core 3.1 SDK (currently preview 2.0). .NET Core 3.1 is likely to be the next LTS release from Microsoft (see the following [blog post]( https://devblogs.microsoft.com/dotnet/announcing-net-core-3-1-preview-2/))
 
 - This repo contains large RVT sample files and uses [`git lfs`](https://git-lfs.github.com/), make sure you clone accordingly :warning:
 - [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) for .NET Core Samples.
@@ -52,79 +62,44 @@ Optional :-
 - [PowerShell Core]( https://github.com/PowerShell/PowerShell) useful .NET command shell
 - [Postman](https://www.getpostman.com/)
 
-### `dotent build`
+2. **BIM 360 Account**: must be Account Admin to add the app integration. [Learn about provisioning](https://forge.autodesk.com/blog/bim-360-docs-provisioning-forge-apps). Make a not with the _account id_ and  _project id_. 
 
-To compile individual samples :-
+3. **Forge Account**: Learn how to create a Forge Account, activate subscription and create an app at [this tutorial](http://learnforge.autodesk.io/#/account/). Get _Forge client id_, _Forge client secret_ and _Forge callback url_. 
 
+4. In this sample, to test with.
+
+5. Optional: If test with existing modelset, create some [modelsets of Model Coordination](https://knowledge.autodesk.com/support/bim-360/learn-explore/caas/CloudHelp/cloudhelp/ENU/BIM360D-Model-Coordination/files/GUID-38CC3A1C-92FF-4682-847F-9CFAFCC4CCCE-html.html) in BIM 360. Make a note with the _modelset id_. 
+
+  <p align="center"><img src="./help/msid.png" width="1000"></p>  
+
+### Running locally
+
+1. Clone this project or download it. It's recommended to install [GitHub desktop](https://desktop.github.com/). To clone it via command line, use the following (**Terminal** on MacOSX/Linux, **Git Shell** on Windows):
+
+    git clone https://github.com/xiaodongliang/bim360-mcapi-node-pdf.exporter.sample
+
+2. Open the project folder in **Visual Studio Code**.  The samples in this repo consist of a suite of .NET Core Console applications and a web application. To build and run these applications you will require the cross-platform .NET Core SDK. These samples also ship with a Microsoft Visual Studio solution; however **Visual Studio** is not a prerequisite for running this sample code.
+
+3. In terminal, swtich to the folder of the specific sample, type **dotent restore** to install the required packages and type **dotent build** to build the 
 ```powershell
  PS > cd ./src/{sample_folder}
  PS > dotnet restore
  PS > dotnet build
 ```
-
-## Runtime Configuration Options
-
-Each sample needs the following input configuration :-
+4. Each sample needs the following input configuration **Runtime Configuration**
 
 | Sample | Description |
 | --- | --- |
-|AuthToken|A valid Forge OAuth 2.0 3LO authentication token|
+|AuthToken|A valid Forge OAuth 2.0 3-legged authentication token|
 |AccountId|The BIM 360 Hub (Account) GUID to be used by the samples|
-|ProjectId|The BIM 360 Project GUID to be used by the samples|
+|ProjectId|The BIM 360 Project GUID to be used by the samples|some variables will 
 
-There are three options for managing these values.
+Three options are available with this tutorial. Please check [RuntimeConfig.md](RuntimeConfig.md) for detail steps.
 
-### Option 1: In-line
+5. After the steps above, type **dotnet run** in the terminal
 
-The simplest method is to pass these variables individually to each sample application. At the top of each `Program.cs` file you will see a call to `configuration.Load` commented out. If you uncomment this call, replacing the existing call to `configuration.Load()` you can manually pass these valuses for each sample.
 
-```csharp
-    configuration.Load(new Dictionary<string, string>
-        {
-            { "AuthToken", "Your Forge App OAuth token" },
-            { "AccountId", "Your BIM 360 account GUID (no b. prefix)" },
-            { "ProjectId", "Your BIM 360 project GUID (no b. prefix)"}
-        });
-```
-
-### Option 2: SampleConfiguration.json (default)
-
-The default mechanism to configure these sample is via a ` SampleConfiguration.json ` saved to a `.adsk-forge` directory in the user’s default profile directory. The following PowerShell command can be used to determine the location of this directory. For example, on a windows machine this is typically `c:\users\{user_name}` and `/Users/{user_name}` on OSX etc.
-
-```powershell
- PS > [System.IO.Path]::Combine([System.Environment]::GetFolderPath('UserProfile'), '.adsk-forge')
-```
-
-To use the default `configuration.Load()` in the samples create a `.adsk-forge` folder and add a `SampleConfiguration.json` UTF-8 configuration file.
-
-```json
-{
-  "AccountId": "Your BIM 360 account GUID (no b. prefix)",
-  "ProjectId": "Your BIM 360 project GUID (no b. prefix)",
-  "AuthToken": "Your Forge App OAuth token"
-}
-```
-
-The MCConfig application can be used to do this from the command line. This application will create the `.adsk-forge` folder if it does not exist and write the `SampleConfiguration.json` file.
-
-```powershell
- PS > cd ./src/MCConfig
- PS > dotnet restore
- PS > dotnet build
- PS > dotnet run --accountId={BIM 360 account GUID} --projectId={BIM 360 Project GUID} --authToken={auth token}
-```
-
-### Option 3: Using AuthWeb (Experimental .NET Core 3.1)
-
-The AuthWeb ASP.NET Core Blazor WebApp provides a GUI for writing the `SampleConfiguration.json` file and can also be used to request a Forge 3LO OAuth 2.0 authentication token. To use this application you will need to supply your Forge ClientId and Secret. AuthWeb writes these values to `SampleConfiguration.json` and can be used to set the value of AuthToken in this file. To run this application you need to set the callback URL of your Forge application to `https://localhost:5001/signin/oauth/callback`. Once you have updated your application configuration in Forge start the ASP.NET Core web server and browse to `https://localhost:5001`.
-
-```powershell
- PS > cd ./src/AuthWeb
- PS > dotnet restore
- PS > dotnet build
- PS > dotnet run
-``` 
-
+4. Set the environment variables with your client ID & secret and finally start it. Via command line, navigate to the folder where this repository was cloned and use the following:   
 ## `dotnet run`
 
 To run the samples :-
@@ -133,3 +108,12 @@ To run the samples :-
  PS > cd ./src/{sample_folder}
  PS > dotnet run
 ```
+
+
+## License
+
+This sample is licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT). Please see the [LICENSE](LICENSE) file for full details.
+
+## Written by
+[Don Whittle](https://www.linkedin.com/in/don-whittle-4869088), Model Coordination engineering team, Autodesk.
+reviewed by Xiaodong Liang [@coldwood](https://twitter.com/coldwood), [Forge Partner Development](http://forge.autodesk.com),Autodesk 
