@@ -6,7 +6,7 @@ Each sample needs the following input configuration **Runtime Configuration**
 | --- | --- |
 |AuthToken|A valid Forge OAuth 2.0 3-legged authentication token|
 |AccountId|The BIM 360 Hub (Account) GUID to be used by the samples|
-|ProjectId|The BIM 360 Project GUID to be used by the samples|some variables will 
+|ProjectId|The BIM 360 Project GUID to be used by the samples| 
 
 There are three options for managing these values.
 
@@ -23,13 +23,15 @@ The simplest method is to pass these variables individually to each sample appli
         });
 ```
 
+[demo video of option 1](https://youtu.be/wYhvxt2DLMQ)
+
 ### Option 2: SampleConfiguration.json (default)
 
 The default mechanism to configure these sample is via a ` SampleConfiguration.json ` saved to a `.adsk-forge` directory in the user�s default profile directory. The following PowerShell command can be used to determine the location of this directory. For example, on a windows machine this is typically `c:\users\{user_name}` and `/Users/{user_name}` on OSX etc.
 
 ```powershell
  PS > [System.IO.Path]::Combine([System.Environment]::GetFolderPath('UserProfile'), '.adsk-forge')
-```
+``` 
 
 To use the default `configuration.Load()` in the samples create a `.adsk-forge` folder and add a `SampleConfiguration.json` UTF-8 configuration file.
 
@@ -39,9 +41,9 @@ To use the default `configuration.Load()` in the samples create a `.adsk-forge` 
   "ProjectId": "Your BIM 360 project GUID (no b. prefix)",
   "AuthToken": "Your Forge App OAuth token"
 }
-```
+``` 
 
-The MCConfig application can be used to do this from the command line. This application will create the `.adsk-forge` folder if it does not exist and write the `SampleConfiguration.json` file.
+The [MCConfig](src/MCConfig) tool can be used to do this from the command line. This application will create the `.adsk-forge` folder if it does not exist and write the `SampleConfiguration.json` file.
 
 ```powershell
  PS > cd ./src/MCConfig
@@ -49,6 +51,7 @@ The MCConfig application can be used to do this from the command line. This appl
  PS > dotnet build
  PS > dotnet run --accountId={BIM 360 account GUID} --projectId={BIM 360 Project GUID} --authToken={auth token}
 ```
+[demo video of option 2 by MCConfig](https://youtu.be/B2VwfE_d3RQ)
 
 ### Option 3: Using AuthWeb (Experimental .NET Core 3.1)
 
@@ -70,11 +73,4 @@ To run the samples :-
  PS > dotnet run
 ```
 
-
-## License
-
-This sample is licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT). Please see the [LICENSE](LICENSE) file for full details.
-
-## Written by
-[Don Whittle](https://www.linkedin.com/in/don-whittle-4869088), Model Coordination engineering team, Autodesk.
-reviewed by Xiaodong Liang [@coldwood](https://twitter.com/coldwood), [Forge Partner Development](http://forge.autodesk.com),Autodesk 
+[demo video of option 1](https://youtu.be/1lO3mo8BgXI)

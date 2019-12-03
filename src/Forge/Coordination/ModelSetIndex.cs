@@ -53,7 +53,8 @@ namespace Sample.Forge.Coordination
                 Statement = selectQuery
             };
 
-            var resultFile = _fileManager.NewPath(query.GetThumbprint());
+            var filename = query.GetThumbprint()+".json.gz"
+            var resultFile = _fileManager.NewPath(filename);
 
             if (!resultFile.Exists)
             {
