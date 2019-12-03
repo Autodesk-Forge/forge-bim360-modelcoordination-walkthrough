@@ -1,9 +1,7 @@
 # BIM 360 Model Coordination API .NET Core Tutorial
 
 
-![.NET Core 3.0](https://img.shields.io/badge/.NET%20Core-3.0-blue.svg) 
-![.NET Core 3.1 Preview 2](https://img.shields.io/badge/.NET%20Core-3.1-Preview-2-blue.svg) 
-
+[![.NET Core 3.0](https://img.shields.io/badge/.NET%20Core-3.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 [![visual code](https://img.shields.io/badge/visual%20code-1.28.2-orange.svg)](https://code.visualstudio.com)
 
 [![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/en/docs/oauth/v2/overview/)
@@ -37,11 +35,7 @@ This repository demonstrates basic scenarios of Model Coordination API in .NET C
 
 The samples in this repo build on one another. The execution order above matters. After [Create Model Set](src/CreateModelSetSample/Program.cs), please wait some time for coordinating process completes. Then run the other samples.
  
-If you have not used the sample which creates a model set then you will not be able to use the remaining samples without first tweaking the model set input variables. To play with previous model sets, please note:
-
-```diff
--     Note: The logic of this sample works for model set which are created after Oct 1st,2019
-```
+If you have not used the sample which creates a model set then you will not be able to use the remaining samples without first tweaking the model set input variables. To play with existing model sets, please note: The logic of this sample works for model set which are created after Oct 1st,2019
  
 
 ## Setup
@@ -50,7 +44,7 @@ If you have not used the sample which creates a model set then you will not be a
 
 1. **.NET Core**: The console applications currently target `netcoreapp3.0` and have a single `netstandard2.1` dependency. If you would like to try the [AuthWeb ASP.NET Core Blazor web application](src/AuthWeb) for configuring the samples and obtaining a Forge token the you will need to install the latest .NET Core 3.1 SDK (currently preview 2.0). .NET Core 3.1 is likely to be the next LTS release from Microsoft (see the following [blog post]( https://devblogs.microsoft.com/dotnet/announcing-net-core-3-1-preview-2/))
 
-- This repo contains large RVT sample files and uses [`git lfs`](https://git-lfs.github.com/), make sure you clone accordingly :warning:
+- This repo contains large RVT sample files and uses [`git lfs`](https://git-lfs.github.com/), make sure you clone accordingly
 - [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) for .NET Core Samples.
 
 Optional :-
