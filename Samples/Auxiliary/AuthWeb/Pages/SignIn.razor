@@ -1,0 +1,77 @@
+﻿@*/////////////////////////////////////////////////////////////////////
+// Copyright (c) Autodesk, Inc. All rights reserved
+//
+// Permission to use, copy, modify, and distribute this software in
+// object code form for any purpose and without fee is hereby granted,
+// provided that the above copyright notice appears in all copies and
+// that both that copyright notice and the limited warranty and
+// restricted rights notice below appear in all supporting
+// documentation.
+//
+// AUTODESK PROVIDES THIS PROGRAM "AS IS" AND WITH ALL FAULTS.
+// AUTODESK SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTY OF
+// MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE.  AUTODESK, INC.
+// DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
+// UNINTERRUPTED OR ERROR FREE.
+/////////////////////////////////////////////////////////////////////*@
+@page "/api/forge/callback/oauth"
+@page "/signin"
+
+@using Sample.Forge
+@using Sample.Forge.Auth
+
+@inject ITokenManager tokenManager
+@inject NavigationManager navigationManager
+@inject SampleConfiguration currentConfiguration
+@inject ILocalFileManager fileManager
+
+<h2>Get Forge Token</h2>
+
+<p><em>Requesting token...</em></p>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!currentConfiguration.HasProject || !currentConfiguration.HasForgeApp)
+        {
+            var cached = await fileManager.ReadJsonAsync<SampleConfiguration>();
+
+            if (cached.HasProject && cached.HasForgeApp)
+            {
+                currentConfiguration.AccountId = cached.AccountId;
+                currentConfiguration.ProjectId = cached.ProjectId;
+                currentConfiguration.ClientId = cached.ClientId;
+                currentConfiguration.Secret = cached.Secret;
+                currentConfiguration.CallbackUrl = cached.CallbackUrl;
+            }
+            else
+            {
+                navigationManager.NavigateTo("/configuration");
+            }
+        }
+
+        if (tokenManager.Configured)
+        {
+            navigationManager.NavigateTo("/token");
+        }
+        else if (navigationManager.Uri.Contains("/signin"))
+        {
+            
+            navigationManager.NavigateTo(currentConfiguration.AuthorizeUrlCode.AbsoluteUri);
+            
+        }
+        else if (navigationManager.Uri.Contains("/api"))
+        {
+              var code = new Uri(navigationManager.Uri, UriKind.Absolute).Query.Split('=')[1];
+
+                await tokenManager.Configure(code);
+
+                navigationManager.NavigateTo("/token");
+        }
+        else
+        {
+            navigationManager.NavigateTo(currentConfiguration.AuthorizeUrlCode.AbsoluteUri);
+        }
+    }
+}

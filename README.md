@@ -1,8 +1,8 @@
-# BIM 360 Model Coordination API .NET Core Tutorial
+# BIM 360 Model Coordination API Walkthrough in .NET Core 
 
 
-[![.NET Core 3.0](https://img.shields.io/badge/.NET%20Core-3.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.0)
-[![visual code](https://img.shields.io/badge/visual%20code-1.28.2-orange.svg)](https://code.visualstudio.com)
+[![.NET Core 3.1](https://img.shields.io/badge/.NET%20Core-3.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+[![visual code 2019](https://img.shields.io/badge/visual%20studio%202019-16.4.0-orange.svg)](https://code.visualstudio.com)
 
 [![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/en/docs/oauth/v2/overview/)
 [![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](https://forge.autodesk.com/en/docs/data/v2/developers_guide/overview/)
@@ -18,31 +18,31 @@
 
 ## Description
 
-This repository demonstrates basic scenarios of Model Coordination API in .NET Core, including modelsets, clash, property index and clash issue etc. It also provides a demo on how to classify the raw data, applying them in further comprehensive scenarios.
+This repository demonstrates basic scenarios of Model Coordination API in .NET Core, including model sets, clash, property index and clash issue, etc. It also provides a demo on how to classify the raw data, applying them in further comprehensive scenarios.
  
 ## Available Samples
 
 | Order | Sample | Description | Demo |
 | --- | --- | --- | --- |
-|1|[Environment Check](src/TestEnvironmentSetup/Program.cs)|A sanity check of the current developer environment|[video](https://youtu.be/UV2sm0n3jzg)
-|2|[Create Model Set](src/CreateModelSetSample/Program.cs)|Creating a model set from first principals|[video](https://youtu.be/XKqajnrqQFM)
-|3|[Model Set Versions](src/GetModelSetAndVersionsSample/Program.cs)|Querying model set versions via version number and tip|[video](https://youtu.be/si6Jhkkk_Ro)
-|4|[Clash Results](src/GetClashResultsSample/Program.cs)|Working with clash test result resources|[video](https://youtu.be/wD-QeKSjWhE)
-|5|[Assigned and Closed Clash](src/AssignedAndClosedClashGroupSample/Program.cs)|Querying assigned/closed clash groups and issue details|[video](https://youtu.be/BZXiA391cxY)
-|6|[Model Set Indexes](src/QueryModelSetVersionIndexSample/Program.cs)|BIM property querying against a model set version index|[video](https://youtu.be/gRIXS-mJXCc)
-|7|[Model Set Views](src/CreateAndQueryViewsSample/Program.cs)|Create and query mode set custom views|[video](https://youtu.be/gRIXS-mJXCc)
-|8|[Classify Clashing Objects](src/ClassifyClashingObjectsSample/Program.cs)|Use BIM property index to classify clashing objects|[video](https://youtu.be/4d2foJRU2aQ)
+|1|[Environment Check](src/TestEnvironmentSetup/Program.cs)|A sanity check of the current developer environment|[help](./help/1. TestEnvironmentSetup.md)
+|2|[Create Model Set](src/CreateModelSetSample/Program.cs)|Creating a model set from first principals|[help](./help/2. CreateModelSetSample.md)
+|3|[Model Set Versions](src/GetModelSetAndVersionsSample/Program.cs)|Querying model set versions via version number and tip|[help](3. GetModelSetAndVersionsSample.md)
+|4|[Clash Results](src/GetClashResultsSample/Program.cs)|Working with clash test result resources|[help](./help/4. GetClashResultsSample.md)
+|5|[Assigned and Closed Clash](src/AssignedAndClosedClashGroupSample/Program.cs)|Querying assigned/closed clash groups and issue details|[help](./help/5. QueryModelSetVersionIndexSample.md)
+|6|[Model Set Indexes](src/QueryModelSetVersionIndexSample/Program.cs)|BIM property querying against a model set version index|[help](./help/6. CreateAndQueryViewsSample.md)
+|7|[Model Set Views](src/CreateAndQueryViewsSample/Program.cs)|Create and query mode set custom views|[help](./help/7. ClassifyClashingObjectsSample.md)
+|8|[Classify Clashing Objects](src/ClassifyClashingObjectsSample/Program.cs)|Use BIM property index to classify clashing objects|[help](./help/8. AssignedAndClosedClashGroupSample.md)
 
 The samples in this repo build on one another. The execution order above matters. After [Create Model Set](src/CreateModelSetSample/Program.cs), please wait some time for coordinating process completes. Then run the other samples.
  
-If you have not used the sample which creates a model set then you will not be able to use the remaining samples without first tweaking the model set input variables. To play with existing model sets, please note: The logic of this sample works for model set which are created after Oct 1st,2019
+If you have not used the sample which creates a model set then you will not be able to use the remaining samples without first tweaking the model set input variables. To play with existing model sets, please note: The logic of this sample works for a model set which is created after Oct 1st,2019
  
 
 ## Setup
 
 ### Prerequisites
 
-1. **.NET Core**: The console applications currently target `netcoreapp3.0` and have a single `netstandard2.1` dependency. If you would like to try the [AuthWeb ASP.NET Core Blazor web application](src/AuthWeb) for configuring the samples and obtaining a Forge token the you will need to install the latest .NET Core 3.1 SDK (currently preview 2.0). .NET Core 3.1 is likely to be the next LTS release from Microsoft (see the following [blog post]( https://devblogs.microsoft.com/dotnet/announcing-net-core-3-1-preview-2/))
+1. **.NET Core**: The console applications currently target `netcoreapp3.0` and have a single `netstandard2.1` dependency. If you would like to try the [AuthWeb ASP.NET Core Blazor web application](src/AuthWeb) for configuring the samples and obtaining a Forge token then you will need to install the latest .NET Core 3.1 SDK (currently preview 2.0). .NET Core 3.1 is likely to be the next LTS release from Microsoft (see the following [blog post]( https://devblogs.microsoft.com/dotnet/announcing-net-core-3-1-preview-2/))
 
 - This repo contains large RVT sample files and uses [`git lfs`](https://git-lfs.github.com/), make sure you clone accordingly
 - [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) for .NET Core Samples.

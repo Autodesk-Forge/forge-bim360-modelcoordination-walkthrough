@@ -331,3 +331,5 @@ ASALocalRun/
 
 # local configuration
 **/configuration.json
+help/.DS_Store
+help/images/.DS_Store

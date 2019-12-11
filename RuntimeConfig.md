@@ -23,11 +23,9 @@ The simplest method is to pass these variables individually to each sample appli
         });
 ```
 
-[demo video of option 1](https://youtu.be/wYhvxt2DLMQ)
-
 ### Option 2: SampleConfiguration.json (default)
 
-The default mechanism to configure these sample is via a ` SampleConfiguration.json ` saved to a `.adsk-forge` directory in the user�s default profile directory. The following PowerShell command can be used to determine the location of this directory. For example, on a windows machine this is typically `c:\users\{user_name}` and `/Users/{user_name}` on OSX etc.
+The default mechanism to configure these sample is via a ` SampleConfiguration.json ` saved to a `.adsk-forge` the directory in the user's default profile directory. The following PowerShell command can be used to determine the location of this directory. For example, on a windows machine this is typically `c:\users\{user_name}` and `/Users/{user_name}` on OSX etc.
 
 ```powershell
  PS > [System.IO.Path]::Combine([System.Environment]::GetFolderPath('UserProfile'), '.adsk-forge')
@@ -51,26 +49,22 @@ The [MCConfig](src/MCConfig) tool can be used to do this from the command line. 
  PS > dotnet build
  PS > dotnet run --accountId={BIM 360 account GUID} --projectId={BIM 360 Project GUID} --authToken={auth token}
 ```
-[demo video of option 2 by MCConfig](https://youtu.be/B2VwfE_d3RQ)
+  <p align="center"><img src="./help/images/mcconfig.png" width="400"></p>   
 
 ### Option 3: Using AuthWeb (Experimental .NET Core 3.1)
 
-The AuthWeb ASP.NET Core Blazor WebApp provides a GUI for writing the `SampleConfiguration.json` file and can also be used to request a Forge 3LO OAuth 2.0 authentication token. To use this application you will need to supply your Forge ClientId and Secret. AuthWeb writes these values to `SampleConfiguration.json` and can be used to set the value of AuthToken in this file. To run this application you need to set the callback URL of your Forge application to `https://localhost:5001/signin/oauth/callback`. Once you have updated your application configuration in Forge start the ASP.NET Core web server and browse to `https://localhost:5001`.
+The AuthWeb ASP.NET Core Blazor WebApp provides a GUI for writing the `SampleConfiguration.json` file and can also be used to request a Forge 3LO OAuth 2.0 authentication token. To use this application you will need to supply your Forge ClientId and Secret. AuthWeb writes these values to `SampleConfiguration.json` and can be used to set the value of AuthToken in this file. To run this application you need to set the callback URL of your Forge application to `http://localhost:3000/api/forge/callback/oauth`. Once you have updated your application configuration in Forge start the ASP.NET Core web server and browse to `http://localhost:3000`.
+
+In **Confiugration** tab, input hub id, project id , Forge app client id , client secret and callback url. Finally click save. It will produce or update `SampleConfiguration.json`.
+  <p align="center"><img src="./help/images/config.png" width="400"></p>   
+Click **Sign In** tab, it will redirect to login user account of Autodesk. After it succeeds, the token will be generated.  Finally click save. It will update `SampleConfiguration.json` with the token. Then the file is ready to be used for sample tests. Click Refresh if the token expired.
+
+  <p align="center"><img src="./help/images/token.png" width="400"></p>   
 
 ```powershell
  PS > cd ./src/AuthWeb
  PS > dotnet restore
  PS > dotnet build
  PS > dotnet run
-``` 
+```   
 
-## `dotnet run`
-
-To run the samples :-
-
-```powershell
- PS > cd ./src/{sample_folder}
- PS > dotnet run
-```
-
-[demo video of option 1](https://youtu.be/1lO3mo8BgXI)
