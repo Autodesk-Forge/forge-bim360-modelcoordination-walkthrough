@@ -44,12 +44,12 @@ If you have not used the sample which creates a model set then you will not be a
 
 1. [Knowledge of model coordination](https://knowledge.autodesk.com/support/bim-360/learn-explore/caas/CloudHelp/cloudhelp/ENU/BIM360D-Model-Coordination/files/GUID-38CC3A1C-92FF-4682-847F-9CFAFCC4CCCE-html.html) 
 2. **.NET Core**: The console applications currently target `netcoreapp3.1` and have a single `netstandard2.1` dependency. You will need [.NET Core 3.1 SDK]( https://dotnet.microsoft.com/download/dotnet-core/3.1) installed. The samples can also work with `netcoreapp3.0`, but since [AuthWeb ASP.NET Core Blazor WebApp](/samples/auxiliary/AuthWeb) depends on `netcoreapp3.1`, it is recommended use `netcoreapp3.1` with all samples.
-- [.NET Core 3.1 SDK]( https://dotnet.microsoft.com/download/dotnet-core/3.1) for AuthWeb support (ASP.NET Blazor) . Check **option #3** in [RuntimeConfig.md](RuntimeConfig.md)
-- [PowerShell Core]( https://github.com/PowerShell/PowerShell) useful .NET command shell
 
-3. **Forge Account**: Learn how to create a Forge Account, activate subscription and create an app at [this tutorial](http://learnforge.autodesk.io/#/account/). Get _Forge client id_, _Forge client secret_ and _Forge callback url_. These can be used by **option #3** (in [RuntimeConfig.md](RuntimeConfig.md)) to get 3-legged token. Please register Forge app with the _callback url_ as 
+  To test on cross-platform, ensure [.NET Core 3.1 SDK]( https://dotnet.microsoft.com/download/dotnet-core/3.1) has been installed.  
 
-    ```https://localhost:5001/signin/OAuth/callback```
+3. **Forge Account**: Learn how to create a Forge Account, activate subscription and create an app by [this tutorial](http://learnforge.autodesk.io/#/account/). Get _Forge client id_, _Forge client secret_ and _Forge callback url_. These can be used by **option #3** (in [RuntimeConfig.md](RuntimeConfig.md)) to get 3-legged token. Please register Forge app with the _callback url_ as 
+
+    ```http://localhost:3000/api/forge/callback/oauth```
 
 4. **Postman**: This is optional, but recommendable to get 3-legged token. Check the tutorial of [Postman Scripts of Model Coordination API](https://github.com/xiaodongliang/bim360-mcapi-postman.test)for details.
 
@@ -84,7 +84,7 @@ Three options are available with this walkthough sample. Please check [RuntimeCo
 
       5.1 ) Open the sample folder in **Visual Studio Code**.  The samples in this repo consist of a suite of .NET Core Console applications and a web application. To build and run these applications you will require the cross-platform .NET Core SDK. 
 
-      5.2) In terminal, switch to the folder of the specific sample, type **dotnet restore** to install the required packages and type ** dotnet build** to build the sample:
+      5.2) In terminal, switch to the folder of the specific sample, type `dotnet restore` to install the required packages and type `dotnet build` to build the sample:
 
       ```powershell
       PS > cd ./src/{sample_folder}
@@ -92,9 +92,9 @@ Three options are available with this walkthough sample. Please check [RuntimeCo
       PS > dotnet build
       ```
  
-      5.3) After the steps above, type **dotnet run** in the terminal to run the sample.
+      5.3) After the steps above, type `dotnet run` in the terminal to run the sample.
       ```powershell
-        PS > cd ./src/{sample_folder}
+        PS > cd ./samples/{sample_folder}
         PS > dotnet run
       ```
 
