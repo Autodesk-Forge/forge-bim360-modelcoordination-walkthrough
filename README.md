@@ -29,10 +29,10 @@ This repository demonstrates basic scenarios of Model Coordination API in .NET C
 |2|[Create Model Set](/samples/2.%20CreateModelSetSample/Program.cs)|Creating a model set from first principals|[help](/help/2.%20CreateModelSetSample.md)
 |3|[Model Set Versions](/samples/3.%20GetModelSetAndVersionsSample/Program.cs)|Querying model set versions via version number and tip|[help](/help/3.%20GetModelSetAndVersionsSample.md)
 |4|[Clash Results](/samples/4.%20GetClashResultsSample/Program.cs)|Working with clash test result resources|[help](/help/4.%20GetClashResultsSample.md)
-|5|[Assigned and Closed Clash](/samples/5.%20AssignedAndClosedClashGroupSample/Program.cs)|Querying assigned/closed clash groups and issue details|[help](/help/5.%20QueryModelSetVersionIndexSample.md)
-|6|[Model Set Indexes](/samples/6.%20QueryModelSetVersionIndexSample/Program.cs)|BIM property querying against a model set version index|[help](/help/6.%20CreateAndQueryViewsSample.md)
-|7|[Model Set Views](/samples/7.%20CreateAndQueryViewsSample/Program.cs)|Create and query mode set custom views|[help](/help/7.%20ClassifyClashingObjectsSample.md)
-|8|[Classify Clashing Objects](/samples/%20ClassifyClashingObjectsSample/Program.cs)|Use BIM property index to classify clashing objects|[help](/help/8.%20AssignedAndClosedClashGroupSample.md)
+|5|[Assigned and Closed Clash](/samples/5.%20QueryModelSetVersionIndexSample/Program.cs)|Querying assigned/closed clash groups and issue details|[help](/help/5.%20QueryModelSetVersionIndexSample.md)
+|6|[Model Set Indexes](/samples/6.%20CreateAndQueryViewsSample/Program.cs)|BIM property querying against a model set version index|[help](/help/6.%20CreateAndQueryViewsSample.md)
+|7|[Model Set Views](/samples/7.%20ClassifyClashingObjectsSample/Program.cs)|Create and query mode set custom views|[help](/help/7.%20ClassifyClashingObjectsSample)
+|8|[Classify Clashing Objects](/samples/8.%20AssignedAndClosedClashGroupSample/Program.cs)|Use BIM property index to classify clashing objects|[help](/help/8.%20AssignedAndClosedClashGroupSample.md)
 
 The samples in this repository build on one another. The execution order above matters. After [Create Model Set](/samples/2.%20CreateModelSetSample/Program.cs), please wait some time for coordinating process completes. Then run the other samples.
  
