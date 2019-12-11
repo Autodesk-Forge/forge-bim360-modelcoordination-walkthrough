@@ -2,7 +2,8 @@
 
 
 [![.NET Core 3.1](https://img.shields.io/badge/.NET%20Core-3.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.0)
-[![visual code 2019](https://img.shields.io/badge/visual%20studio%202019-16.4.0-orange.svg)](https://code.visualstudio.com)
+[![visual code 2019](https://img.shields.io/badge/visual%20studio%202019-16.4.0-orange.svg)](https://visualstudio.microsoft.com/)
+[![visual code](https://img.shields.io/badge/visual%20code-1.28.2-orange.svg)](https://code.visualstudio.com)
 
 [![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/en/docs/oauth/v2/overview/)
 [![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](https://forge.autodesk.com/en/docs/data/v2/developers_guide/overview/)
@@ -24,14 +25,14 @@ This repository demonstrates basic scenarios of Model Coordination API in .NET C
 
 | Order | Sample | Description | Demo |
 | --- | --- | --- | --- |
-|1|[Environment Check](src/TestEnvironmentSetup/Program.cs)|A sanity check of the current developer environment|[help](/help/1. TestEnvironmentSetup.md)
-|2|[Create Model Set](src/CreateModelSetSample/Program.cs)|Creating a model set from first principals|[help](/help/2. CreateModelSetSample.md)
-|3|[Model Set Versions](src/GetModelSetAndVersionsSample/Program.cs)|Querying model set versions via version number and tip|[help](3. GetModelSetAndVersionsSample.md)
-|4|[Clash Results](src/GetClashResultsSample/Program.cs)|Working with clash test result resources|[help](/help/4. GetClashResultsSample.md)
-|5|[Assigned and Closed Clash](src/AssignedAndClosedClashGroupSample/Program.cs)|Querying assigned/closed clash groups and issue details|[help](./help/5. QueryModelSetVersionIndexSample.md)
-|6|[Model Set Indexes](src/QueryModelSetVersionIndexSample/Program.cs)|BIM property querying against a model set version index|[help](./help/6. CreateAndQueryViewsSample.md)
-|7|[Model Set Views](src/CreateAndQueryViewsSample/Program.cs)|Create and query mode set custom views|[help](help/7. ClassifyClashingObjectsSample.md)
-|8|[Classify Clashing Objects](src/ClassifyClashingObjectsSample/Program.cs)|Use BIM property index to classify clashing objects|[help](/help/8. AssignedAndClosedClashGroupSample.md)
+|1|[Environment Check](src/TestEnvironmentSetup/Program.cs)|A sanity check of the current developer environment|[help](/help/1.%20TestEnvironmentSetup.md)
+|2|[Create Model Set](src/CreateModelSetSample/Program.cs)|Creating a model set from first principals|[help](/help/2.%20CreateModelSetSample.md)
+|3|[Model Set Versions](src/GetModelSetAndVersionsSample/Program.cs)|Querying model set versions via version number and tip|[help](3.%20GetModelSetAndVersionsSample.md)
+|4|[Clash Results](src/GetClashResultsSample/Program.cs)|Working with clash test result resources|[help](/help/4.%20GetClashResultsSample.md)
+|5|[Assigned and Closed Clash](src/AssignedAndClosedClashGroupSample/Program.cs)|Querying assigned/closed clash groups and issue details|[help](./help/5.%20QueryModelSetVersionIndexSample.md)
+|6|[Model Set Indexes](src/QueryModelSetVersionIndexSample/Program.cs)|BIM property querying against a model set version index|[help](./help/6.%20CreateAndQueryViewsSample.md)
+|7|[Model Set Views](src/CreateAndQueryViewsSample/Program.cs)|Create and query mode set custom views|[help](help/7.%20ClassifyClashingObjectsSample.md)
+|8|[Classify Clashing Objects](src/ClassifyClashingObjectsSample/Program.cs)|Use BIM property index to classify clashing objects|[help](/help/8.%20AssignedAndClosedClashGroupSample.md)
 
 The samples in this repo build on one another. The execution order above matters. After [Create Model Set](src/CreateModelSetSample/Program.cs), please wait some time for coordinating process completes. Then run the other samples.
  
