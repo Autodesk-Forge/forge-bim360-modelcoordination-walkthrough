@@ -67,7 +67,7 @@ If you have not used the sample which creates a model set then you will not be a
 
     git clone https://github.com/xiaodongliang/bim360-mcapi-node-pdf.exporter.sample
 
-2. Open the solution file in **Visual Stduo**, ensure dependent packages of nuGet have been installed, and the dependent project [Forge ](./samples/auxiliary/Forge) has been built and imported to the sample projects successfully. 
+2. Open the solution file in **Visual Studio**, ensure dependent packages of nuGet have been installed, and the dependent project [Forge ](/samples/auxiliary/Forge) has been built and imported to the sample projects successfully. 
 
 3. Each sample needs the following input configuration **Runtime Configuration**
 
