@@ -2,8 +2,6 @@
 
 
 [![.NET Core 3.1](https://img.shields.io/badge/.NET%20Core-3.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.0)
-[![visual code 2019](https://img.shields.io/badge/visual%20studio%202019-16.4.0-orange.svg)](https://visualstudio.microsoft.com/)
-[![visual code](https://img.shields.io/badge/visual%20code-1.28.2-orange.svg)](https://code.visualstudio.com)
 
 [![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](https://forge.autodesk.com/en/docs/oauth/v2/overview/)
 [![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](https://forge.autodesk.com/en/docs/data/v2/developers_guide/overview/)
@@ -15,7 +13,7 @@
 [![BIM 360 Index](https://img.shields.io/badge/IndexAPI-1.2.44-green)]( https://www.nuget.org/packages/Autodesk.Forge.Bim360.ModelCoordination.Index/)
 
 [![License](http://img.shields.io/:license-mit-red.svg)](http://opensource.org/licenses/MIT)
-[![Level](https://img.shields.io/badge/Level-Intermediate-blue.svg)](http://developer.autodesk.com/)
+[![Level](https://img.shields.io/badge/Level-Intermediate-blue.svg)](http://forge.autodesk.com/)
 
 ## Description
 
@@ -60,7 +58,7 @@ If you have not used the sample which creates a model set then you will not be a
 
 1. Clone this project or download it. It's recommended to install [GitHub desktop](https://desktop.github.com/). To clone it via command line, use the following (**Terminal** on MacOSX/Linux, **Git Shell** on Windows):
 
-    ```git clone https://github.com/xiaodongliang/bim360-model-coordination-netCore.tutorial```
+    ```git clone https://github.com/autodesk-forge/forge-bim360-modelcoordination-walkthrough```
 
     This repo contains large RVT sample files and uses [`git lfs`](https://git-lfs.github.com/), make sure you clone accordingly
 
@@ -104,7 +102,6 @@ Three options are available with this walkthough sample. Please check [RuntimeCo
 
 ## Tutorials
 - [Model Coordination API Document](https://forge.autodesk.com/en/docs/bim360/v1/tutorials/model-coordination)
-- [Model Coordination API Node.js Tutorials]( https://github.com/xiaodongliang/bim360-mcapi-node-unit.test)
 
 ## License
 
